@@ -1,0 +1,2 @@
+< Program -- l.32 > appLoggingBuilder.AddConfiguration(webBuilderContext.Configuration.GetSection("Logging"));
+

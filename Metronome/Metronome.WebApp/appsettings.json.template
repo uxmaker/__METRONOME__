@@ -1,0 +1,18 @@
+{
+  "SqlServer": {
+    "ConnectionStrings": {
+      "WebAppDB": "Server=.\\SQLEXPRESS;Database=.;Trusted_Connection=True"
+    }
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*",
+  "JwtBearer": {
+    "SecretKey":  "PaNoBlNaBrUlFiEtReChFeEsGoAvNoGoVe123456789"
+  }
+}

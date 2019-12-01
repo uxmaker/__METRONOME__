@@ -1,0 +1,165 @@
+/*  INDEX
+==================================*/
+
+#V-INDEX
+{
+    display     : grid;
+    min-height  : 100vh;
+    grid-gap    : 0px;
+    font-family : sans-serif;
+    grid-template-areas:
+                    "header"
+                    "section1"
+                    "section2"
+                    "section3"
+                    "footer";
+    grid-template-rows      : 80px 1fr 1fr 1fr 80px;
+    grid-template-columns   : 1fr;
+}
+
+/* HEADER
+----------------------------------*/
+
+#V-INDEX-HEADER
+{
+    display         : grid;
+    height          : 100%;
+    grid-gap        : 0 20px;
+    grid-area       : header;
+    text-align      : right;
+    background-color: #00000050;
+    grid-template-rows      : 23px 34px 23px;
+    grid-template-columns   : 190px 1fr;
+    grid-auto-columns       : 120px;
+    padding-left            : 120px;
+    padding-right           : 120px;
+}
+
+/*  HEADER -> BUTTONS
+...................................*/
+
+#V-INDEX-HEADER .button
+{
+    line-height     : 34px;
+    font-size       : 12px;
+    border          : 1px solid white;
+    color           : white;
+    text-decoration : none;
+    min-width       : 80px;
+    text-align      : center;
+    border-radius   : 3px;
+    transition      : 300ms;
+    grid-row        : 2 / 3;
+    background-color: #FFFFFF00;
+}
+
+#V-INDEX-HEADER .button:hover
+{
+    color           : black;
+    background-color: white;
+    box-shadow      : 0px -1px 3px #00000080 inset;
+}
+
+#V-INDEX-HEADER .button:active
+{
+    transition      : 0ms;
+    box-shadow      : 0px 1px 3px #00000080 inset;
+}
+
+/*  HEADER -> LOGO, LOGIN, REGISTER, CONTACT, SUPPORT
+...................................*/
+
+#V-INDEX-HEADER-LOGO
+{
+    grid-row        : 1/4;
+    grid-column     : 1/2;
+    background-image: url( "../../assets/logo.png" );
+    background-size : 48px;
+    background-color: #001025;
+    background-position : center;
+    background-repeat   : no-repeat;
+}
+
+#V-INDEX-HEADER-LOGIN       { grid-column : 3/4; }
+#V-INDEX-HEADER-REGISTER    { grid-column : 4/5; }
+#V-INDEX-HEADER-CONTACT     { grid-column : 5/6; }
+#V-INDEX-HEADER-SUPPORT     { grid-column : 6/7; }
+#V-INDEX-HEADER-EXPLORE     { grid-column : 7/8; }
+
+/* SECTION 1
+----------------------------------*/
+
+#V-INDEX-SECTION1
+{
+    display         : grid;
+    grid-template-areas: "dynamicBg";
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    grid-area       : section1;
+
+    height          : 100vh;
+}
+
+#svg-dynamic-background
+{
+    grid-area       : dynamicBg;
+    width           : 100%;
+    z-index         : 0;
+}
+
+#V-INDEX-SECTION1-WLC
+{
+    display:block;
+    grid-row        : 1/2;
+    grid-column     : 1/2;
+    color           : white;
+    z-index         : 2;
+    background-color: #00000080;
+    text-align      : center;
+    line-height     : 200px;
+}
+
+/* SECTION 2
+----------------------------------*/
+
+#V-INDEX-SECTION2
+{
+    grid-area       : section2;
+    background-image: url( "../../assets/paris-wallpaper-colored.jpg" );
+    background-size : cover;
+    background-position : center;
+}
+
+/* SECTION 3
+----------------------------------*/
+
+#V-INDEX-SECTION3
+{
+    grid-area       : section3;
+    background-color: #10101050;
+}
+
+/* FOOTER
+----------------------------------*/
+
+#V-INDEX-FOOTER
+{
+    grid-area       : footer;
+    background-color: #050505;
+}
+
+#V-INDEX-FOOTER img
+{
+    display         : inline-block;
+    padding         : 10px 25px;
+    background-color: #001025;
+    height          : 40px;
+    border-radius   : 666px;
+    margin-left     : 20px;
+    margin-top      : 10px;
+}
+
+#V-INDEX-FOOTER .copy
+{
+    display         : inline-block;
+}

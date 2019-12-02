@@ -75,7 +75,6 @@ namespace Metronome.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 var member = await _memberGateway.FindByEmail(model.Email);
 
                 if (member.Id == -1)

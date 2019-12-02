@@ -2,6 +2,12 @@
 @model LoginFormModel
 
 <div class="form-container">
+    <div>
+        @if(!ViewContext.ViewData.ModelState.IsValid)
+        {
+            <div asp-validation-summary="All"></div>
+        }
+    </div>
     <form asp-controller="Auth" asp-action="Login" method="post">
         <div>
             <span asp-validation-for="Email"></span>

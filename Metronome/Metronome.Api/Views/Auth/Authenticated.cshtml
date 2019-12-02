@@ -1,0 +1,31 @@
+﻿@using Metronome.Api.Authentication.Jwt
+@using Metronome.Api.Models.MemberViewModels;
+
+@model AuthenticatedModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Authenticated</title>
+</head>
+<body>
+    <script>
+        (function () {
+            window.opener.postMessage({
+                type: 'authenticated',
+                payload: {
+                    bearer: {
+                        accessToken: '@Model.Token.AccessToken',
+                        expires_in: @Model.Token.ExpiresIn },
+                    email: '@Model.MemberEmail'
+                }
+            }, '@Model.SpaHost');
+
+            window.close();
+        })();
+    </script>
+    <!-- @Model.BreackPadding -->
+</body>
+</html>

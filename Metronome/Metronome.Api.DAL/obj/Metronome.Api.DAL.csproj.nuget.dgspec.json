@@ -1,0 +1,77 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj",
+        "projectName": "Metronome.Api.DAL",
+        "projectPath": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj",
+        "packagesPath": "C:\\Users\\z3yx\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DAL\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\z3yx\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.4, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.6.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

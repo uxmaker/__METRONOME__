@@ -24,7 +24,7 @@ export default {
   mounted: async function() {
     var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
     mapboxgl.accessToken = 'pk.eyJ1Ijoic3VwZXJ5YW5uODkiLCJhIjoiY2syNGgwaG1yMjM2NjNobXY0eTZyNDhtdiJ9.PapYOTQWtc2d0HP7VLCbDw';
-    this.map = new mapboxgl.Map({
+    this.map = await new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/superyann89/ck37eqs4c08xg1co2lanx11vx/draft',
       //style: 'mapbox://styles/mapbox/streets-v11',
@@ -35,6 +35,7 @@ export default {
     let me = this;
     await this.newImage('http://localhost:5000/Images/logo.png', 'subway-icon1', me);
     await this.newImage('http://localhost:5000/Images/marker-40.png', 'user-icon', me);
+    await this.newImage('http://localhost:5000/Images/train.png', 'train-icon', me);
 
     /* await this.map.loadImage('http://localhost:5000/Images/marker-40.png', function(error, image) {
       //console.log(image);
@@ -163,8 +164,8 @@ export default {
       "layout": {
       // get the icon name from the source's "icon" property
       // concatenate the name to get an icon from the style's sprite sheet
-      "icon-image": "user-icon",
-      "icon-size": 1,
+      "icon-image": "train-icon",
+      "icon-size": 1.5,
       // get the title name from the source's "title" property
       "text-field": ["get", "title"],
       "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
@@ -177,43 +178,37 @@ export default {
 
 
       var timebtwstations = 2000;
-      var refreshtimer = 1000;
+      var refreshtimer = 700;
       
       var cpt = -1;
       
-      var goal = geojson.features[1].geometry.coordinates;
+      var goal;
 
-      var latitudestep;
-      var longitudestep;
       
       var currentposition = geojson.features[0].geometry.coordinates;
-      var x = 0;
+      var x = -1;
+      var type = '+';
 
+      
       window.setInterval(function() {
 
         //console.log(x % (timebtwstations / refreshtimer) == 0 && x !== 0);
         //console.log('x : ' + x);
-        if (x % (timebtwstations / refreshtimer) == 0 && x !== 0) {
-          if(cpt < geojson.features.length - 2 ){ cpt++; } else { cpt = -1; }
-          origin = currentposition;
-          goal = geojson.features[(cpt + 1)].geometry.coordinates;
-        }
+         
+        origin = currentposition;
+        goal = geojson.features[(cpt + 1)].geometry.coordinates; 
+        
 
+        //console.log(geojson.features.length);
+        if(type == '+') { x++; } else { x--;}
+
+        currentposition = geojson.features[x].geometry.coordinates;
+            
+        if (x == (geojson.features.length - 1 ) && type == '+') { type = '-'; }
+        else if(x == 0 && type == '-' ) { type = '+'; }
+    
         //console.log('origin + ' + origin);
         //console.log('goal : ' + goal);
-
-        if (currentposition === origin) {
-          
-          longitudestep = (goal[0] - origin[0]) * refreshtimer / (timebtwstations);
-          //console.log("longitude : " + longitudestep);
-          latitudestep = (goal[1] - origin[1]) * refreshtimer / (timebtwstations);
-          //console.log("lat : " + latitudestep);
-          
-        }
-
-        currentposition[0] += longitudestep;
-        currentposition[1] += latitudestep;
-        x++;
         //console.log(geojson.features[0].geometry.coordinates[0]);
 
         me.map.getSource('test').setData({
@@ -221,7 +216,7 @@ export default {
           "features": [{
               "type": "Feature",
               "properties": { 
-                "title": "MOVE PLS",
+                "title": "Ton metro",
               "icon": "user-icon"  },
               "geometry": {
                   "type": "Point",
@@ -233,7 +228,37 @@ export default {
 
 
       }, refreshtimer);
+      
 
+ 
+      var stationid = 10;
+      var tempsrestant = 2;
+ /*      
+      window.setInterval( function() {
+
+        var nbstations = Math.trunc(tempsrestant/1.30);
+        //console.log(stationid + nbstations);
+        //currentposition = geojson.features[stationid].geometry.coordinates;
+        if (type == '+') {currentposition = geojson.features[stationid - nbstations ].geometry.coordinates;} 
+        else { currentposition = geojson.features[stationid + nbstations].geometry.coordinates }
+
+
+        me.map.getSource('test').setData({
+          "type": "FeatureCollection",
+          "features": [{
+              "type": "Feature",
+              "properties": { 
+                "title": "Ton metro",
+              "icon": "user-icon"  },
+              "geometry": {
+                  "type": "Point",
+                  "coordinates": currentposition
+              }
+          }]
+        }); 
+
+      }, refreshtimer);
+  */
 
     },
 

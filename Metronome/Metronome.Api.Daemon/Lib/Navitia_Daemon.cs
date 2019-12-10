@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using Newtonsoft.Json;
 using Metronome.Api.DAL.Navitia;
+using Metronome.Api.DAL;
 
 namespace Metronome.Api.Daemon.Lib
 {
@@ -13,11 +14,15 @@ namespace Metronome.Api.Daemon.Lib
 
     internal class LineList { public List<LineData> Lines { get; set; }  }
 
+    internal class Ligne { public string id { get; set; } public List<string> Stations { get; set; } }
+    internal class Jointure { public List<Ligne> Lignes { get; set; } }
+
     public class Navitia_Daemon : Daemon
     {
         readonly DaemonOptions _options;
         readonly LineGateway _lineGateway;
         readonly StopAreaGateway _stopAreaGateway;
+        readonly JointureGateway _jointureGateway;
 
         // -- PUBLIC METHODS
 
@@ -27,6 +32,7 @@ namespace Metronome.Api.Daemon.Lib
             _options = options;
             _lineGateway = lineGateway;
             _stopAreaGateway = stopAreaGateway;
+            
         }
 
         // -- OVERRIDE METHODS
@@ -76,6 +82,30 @@ namespace Metronome.Api.Daemon.Lib
                     {
                         await _stopAreaGateway.Create(station.API_ID, station.Name, station.Coord.Lon, station.Coord.Lat);
                         Console.WriteLine($"{station.API_ID} : {station.Name} : {station.Coord.Lon} -- {station.Coord.Lat}");
+                    }
+                }
+            }
+            await InsertJointure();
+        }
+        private async Task InsertJointure()
+        {
+            var stream = File.OpenText("C:/Users/bapti/OneDrive/Bureau/ListeStations.json");
+            string content = stream.ReadToEnd();
+            Jointure obj = JsonConvert.DeserializeObject<Jointure>(content);
+            foreach (Ligne li in obj.Lignes)
+            {
+                for (int i = 0; i < li.Stations.Count - 1; i++)
+                {
+                    if (li.Stations[i + 1].IndexOf("%") != -1)
+                    {
+                        int pos = li.Stations[i + 1].IndexOf("%");
+                        li.Stations[i + 1] = li.Stations[i + 1].Remove(pos);
+                        await _jointureGateway.Create(li.id, li.Stations[i], li.Stations[i + 1]);
+                    }
+                    else
+                    {
+                        await _jointureGateway.Create(li.id, li.Stations[i], li.Stations[i + 1]);
+                        await _jointureGateway.Create(li.id, li.Stations[i + 1], li.Stations[i]);
                     }
                 }
             }

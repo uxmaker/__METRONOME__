@@ -8523,23 +8523,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\z3yx\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\bapti\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api\\Metronome.Api.csproj",
+      "projectUniqueName": "C:\\Users\\bapti\\OneDrive\\Bureau\\GitMetronome\\__METRONOME__\\Metronome\\Metronome.Api\\Metronome.Api.csproj",
       "projectName": "Metronome.Api",
-      "projectPath": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api\\Metronome.Api.csproj",
-      "packagesPath": "C:\\Users\\z3yx\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api\\obj\\",
+      "projectPath": "C:\\Users\\bapti\\OneDrive\\Bureau\\GitMetronome\\__METRONOME__\\Metronome\\Metronome.Api\\Metronome.Api.csproj",
+      "packagesPath": "C:\\Users\\bapti\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\bapti\\OneDrive\\Bureau\\GitMetronome\\__METRONOME__\\Metronome\\Metronome.Api\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\z3yx\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\bapti\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8552,8 +8548,8 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj": {
-              "projectPath": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj"
+            "C:\\Users\\bapti\\OneDrive\\Bureau\\GitMetronome\\__METRONOME__\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj": {
+              "projectPath": "C:\\Users\\bapti\\OneDrive\\Bureau\\GitMetronome\\__METRONOME__\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj"
             }
           }
         }

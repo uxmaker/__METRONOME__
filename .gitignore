@@ -385,3 +385,9 @@ fabric.properties
 .idea/**/markdown-navigator/
 
 # End of https://www.gitignore.io/api/node,vuejs,webstorm
+/Metronome/Metronome.Api.DAL.Tests/appsettings.json
+/Metronome/Metronome.Api.DAL.Tests/appsettings.json
+/Metronome/.vs/Metronome/config/applicationhost.config
+/Metronome/Metronome.Api.DB/appsettings.json
+/Metronome/Metronome.Api.DB/bin/Debug/netcoreapp2.1/appsettings.json
+/Metronome/Metronome.Api.DB/appsettings.json

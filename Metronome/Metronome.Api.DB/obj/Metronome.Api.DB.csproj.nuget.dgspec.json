@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DB\\Metronome.Api.DB.csproj": {}
+    "C:\\Users\\bapti\\OneDrive\\Bureau\\GitMetronome\\__METRONOME__\\Metronome\\Metronome.Api.DB\\Metronome.Api.DB.csproj": {}
   },
   "projects": {
-    "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DB\\Metronome.Api.DB.csproj": {
+    "C:\\Users\\bapti\\OneDrive\\Bureau\\GitMetronome\\__METRONOME__\\Metronome\\Metronome.Api.DB\\Metronome.Api.DB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DB\\Metronome.Api.DB.csproj",
+        "projectUniqueName": "C:\\Users\\bapti\\OneDrive\\Bureau\\GitMetronome\\__METRONOME__\\Metronome\\Metronome.Api.DB\\Metronome.Api.DB.csproj",
         "projectName": "Metronome.Api.DB",
-        "projectPath": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DB\\Metronome.Api.DB.csproj",
-        "packagesPath": "C:\\Users\\z3yx\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DB\\obj\\",
+        "projectPath": "C:\\Users\\bapti\\OneDrive\\Bureau\\GitMetronome\\__METRONOME__\\Metronome\\Metronome.Api.DB\\Metronome.Api.DB.csproj",
+        "packagesPath": "C:\\Users\\bapti\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\bapti\\OneDrive\\Bureau\\GitMetronome\\__METRONOME__\\Metronome\\Metronome.Api.DB\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\z3yx\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\bapti\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

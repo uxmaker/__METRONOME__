@@ -45,7 +45,7 @@ export default {
         await navigator.geolocation.getCurrentPosition(this.success);
 
         var geojson = await this.JsonGet();
-        //console.log(geojson);
+        console.log(geojson);
 
         let coordline1 = [];
 
@@ -89,7 +89,7 @@ export default {
         });
         
         this.map.addSource('points', { type: 'geojson', data: geojson });
-        this.map.addLayer({
+        /* this.map.addLayer({
           "id": "points",
           "type": "symbol",
           "source": "points",
@@ -104,7 +104,7 @@ export default {
           "text-offset": [0, 0.6],
           "text-anchor": "top"
           }
-        });
+        }); */
 
         this.map.jumpTo({ 'center': [this.crd.longitude, this.crd.latitude], 'zoom': 12 });
 
@@ -191,78 +191,15 @@ export default {
 
         }, refreshtimer);
         */
-        var stationid = 10;
-        var tempsrestant = 2;
-          
-        window.setInterval( function() {
-
-            var nbstations = Math.trunc(tempsrestant/1.30);
-            //console.log(stationid + nbstations);
-            //currentposition = geojson.features[stationid].geometry.coordinates;
-            if (type == '+') {currentposition = geojson.features[stationid - nbstations ].geometry.coordinates;} 
-            else { currentposition = geojson.features[stationid + nbstations].geometry.coordinates }
-
-            me.map.getSource('test').setData({
-              "type": "FeatureCollection",
-              "features": [{
-                  "type": "Feature",
-                  "properties": { 
-                    "title": "Ton metro",
-                  "icon": "user-icon"  },
-                  "geometry": {
-                      "type": "Point",
-                      "coordinates": currentposition
-                  }
-              }]
-            }); 
-
-        }, refreshtimer);
-
-        var el;
-
-        //DATA FOR STOPS
-        this.map.on('click', 'points', async (e) => {
-          var mcoordinates = e.features[0].geometry.coordinates.slice();
-          var description = e.features[0].properties.title;
-
-
-          var timeleft = await me.UpdateSubway(e.features[0].properties.title);
-          //GET THE DATA FROM THE STOP|UPDATE|DISPLAY
-          //EXPECTED AS id = e.features[0].properties.id
-
-
-          // Ensure that if the map is zoomed out such that multiple
-          // copies of the feature are visible, the popup appears
-          // over the copy being pointed to.
-          while (Math.abs(e.lngLat.lng - mcoordinates[0]) > 180) {
-          mcoordinates[0] += e.lngLat.lng > mcoordinates[0] ? 360 : -360;
-          }
-          
-          new mapboxgl.Popup()
-            .setLngLat(mcoordinates)
-            .setHTML(description + "prochain train dans : " + timeleft + "min")
-            .addTo(me.map);
-          });
-
-          // Change the cursor to a ? when the mouse is over the subway stations.
-          me.map.on('mouseenter', 'points', function() {
-            me.map.getCanvas().style.cursor = 'help';
-          });
-          
-          // Change it back to a pointer when it leaves.
-          me.map.on('mouseleave', 'points', function() {
-            me.map.getCanvas().style.cursor = '';
-          });
-
-
        
-        }
 
         var filterGroup = document.getElementById('filter-group');
+        var layersName = [];
 
         geojson["features"].forEach(function(feature) {
           var symbol = feature.properties['ligne'];
           var layerID = 'poi-' + symbol;
+          layersName.push(layerID);
 
           if (!me.map.getLayer(layerID)) {
             me.map.addLayer({
@@ -271,6 +208,11 @@ export default {
             'source': 'points',
             'layout': {
               'icon-image': 'subway-icon1',
+              "icon-size": 0.4,
+              "text-field": ["get", "title"],
+              "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+              "text-offset": [0, 0.6],
+              "text-anchor": "top",
               'icon-allow-overlap': true
             },
             'filter': ['==', 'ligne', symbol]
@@ -297,18 +239,110 @@ export default {
             );
           });
         }
-      });
+        });
 
+        layersName.forEach(element => {
+          me.addMarker(element, me, mapboxgl);
+        });
 
+         var stationid = 10;
+        var tempsrestant = 2;
+          
+        window.setInterval( function() {
 
+            var nbstations = Math.trunc(tempsrestant/1.30);
+            //console.log(stationid + nbstations);
+            //currentposition = geojson.features[stationid].geometry.coordinates;
+            if (type == '+') {currentposition = geojson.features[stationid - nbstations ].geometry.coordinates;} 
+            else { currentposition = geojson.features[stationid + nbstations].geometry.coordinates }
 
+            me.map.getSource('test').setData({
+              "type": "FeatureCollection",
+              "features": [{
+                  "type": "Feature",
+                  "properties": { 
+                    "title": "Ton metro",
+                  "icon": "user-icon"  },
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": currentposition
+                  }
+              }]
+            }); 
+
+        }, refreshtimer);
         
+        //DATA FOR STOPS
+        /* this.map.on('click', 'points', async (e) => {
+          var mcoordinates = e.features[0].geometry.coordinates.slice();
+          var description = e.features[0].properties.title;
+
+          var timeleft = await me.UpdateSubway(e.features[0].properties.title);
+          //GET THE DATA FROM THE STOP|UPDATE|DISPLAY
+          //EXPECTED AS id = e.features[0].properties.id
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - mcoordinates[0]) > 180) {
+            mcoordinates[0] += e.lngLat.lng > mcoordinates[0] ? 360 : -360;
+          }
+          
+          new mapboxgl.Popup()
+            .setLngLat(mcoordinates)
+            .setHTML(description + "prochain train dans : " + timeleft + "min")
+            .addTo(me.map);
+        });
+
+        // Change the cursor to a ? when the mouse is over the subway stations.
+        me.map.on('mouseenter', 'points', function() {
+          me.map.getCanvas().style.cursor = 'help';
+        });
+        
+        // Change it back to a pointer when it leaves.
+        me.map.on('mouseleave', 'points', function() {
+          me.map.getCanvas().style.cursor = '';
+        }); */
+      }
+
     });
   },
 
 
 
   methods: {
+
+    async addMarker(layername, me, mapboxgl) {
+      me.map.on('click', layername , async (e) => {
+        var mcoordinates = e.features[0].geometry.coordinates.slice();
+        var description = e.features[0].properties.title;
+
+        var timeleft = await me.UpdateSubway(e.features[0].properties.title);
+        //GET THE DATA FROM THE STOP|UPDATE|DISPLAY
+        //EXPECTED AS id = e.features[0].properties.id
+
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - mcoordinates[0]) > 180) {
+          mcoordinates[0] += e.lngLat.lng > mcoordinates[0] ? 360 : -360;
+        }
+        
+        new mapboxgl.Popup()
+          .setLngLat(mcoordinates)
+          .setHTML(description + " prochain train dans : " + timeleft + "min")
+          .addTo(me.map);
+      });
+      // Change the cursor to a ? when the mouse is over the subway stations.
+      me.map.on('mouseenter', layername , function() {
+        me.map.getCanvas().style.cursor = 'help';
+      });      
+      // Change it back to a pointer when it leaves.
+      me.map.on('mouseleave', layername , function() {
+        me.map.getCanvas().style.cursor = '';
+      });
+
+    },
 
     async UpdateSubway() {
       return(4);

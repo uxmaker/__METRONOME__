@@ -1253,19 +1253,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\bapti\\.nuget\\packages\\": {}
+    "C:\\Users\\z3yx\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bapti\\OneDrive\\Bureau\\GitMetronome\\__METRONOME__\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj",
+      "projectUniqueName": "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj",
       "projectName": "Metronome.Api.DAL",
-      "projectPath": "C:\\Users\\bapti\\OneDrive\\Bureau\\GitMetronome\\__METRONOME__\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj",
-      "packagesPath": "C:\\Users\\bapti\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bapti\\OneDrive\\Bureau\\GitMetronome\\__METRONOME__\\Metronome\\Metronome.Api.DAL\\obj\\",
+      "projectPath": "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj",
+      "packagesPath": "C:\\Users\\z3yx\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api.DAL\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\bapti\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\z3yx\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

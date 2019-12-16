@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Metronome.Api.DAL.Member;
+using Metronome.Api.DAL.Navitia;
 using Metronome.Api.Authentication;
 using Metronome.Api.Authentication.Jwt;
+using Metronome.Api.Extensions;
 using Microsoft.IdentityModel.Tokens;
+
 
 namespace Metronome.Api
 {
@@ -23,6 +26,8 @@ namespace Metronome.Api
         {
             services.AddSingleton(_ => new MemberGateway(_settings["SQL:ConnectionString"]));
             services.AddSingleton(_ => new PasswordHasher());
+            services.AddSingleton(_ => new GeoJsonHandler());
+            services.AddSingleton(_ => new StopAreaGateway(_settings["SQL:ConnectionString"]));
             services.AddSingleton<AuthTokenService>();
         }
 

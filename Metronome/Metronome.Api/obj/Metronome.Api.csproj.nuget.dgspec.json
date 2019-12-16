@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api\\Metronome.Api.csproj": {}
+    "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api\\Metronome.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj": {
+    "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj",
+        "projectUniqueName": "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj",
         "projectName": "Metronome.Api.DAL",
-        "projectPath": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj",
+        "projectPath": "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj",
         "packagesPath": "C:\\Users\\z3yx\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DAL\\obj\\",
+        "outputPath": "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -73,14 +73,14 @@
         }
       }
     },
-    "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api\\Metronome.Api.csproj": {
+    "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api\\Metronome.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api\\Metronome.Api.csproj",
+        "projectUniqueName": "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api\\Metronome.Api.csproj",
         "projectName": "Metronome.Api",
-        "projectPath": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api\\Metronome.Api.csproj",
+        "projectPath": "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api\\Metronome.Api.csproj",
         "packagesPath": "C:\\Users\\z3yx\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api\\obj\\",
+        "outputPath": "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -99,8 +99,8 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj": {
-                "projectPath": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj"
+              "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj": {
+                "projectPath": "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj"
               }
             }
           }

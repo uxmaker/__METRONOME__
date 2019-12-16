@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Data;
 using Dapper;
+using System.Collections.Generic;
 
 namespace Metronome.Api.DAL.Navitia
 {
@@ -10,6 +11,31 @@ namespace Metronome.Api.DAL.Navitia
         static StopAreaData NullStopArea() => new StopAreaData(){ Id = -1, API_ID = null, Coord = null, Lat = 0f, Lon = 0f, Name = null };
 
         public StopAreaGateway(string connectionString) : base(connectionString) { }
+
+        public async Task<List<StopAreaData>> GetAll()
+        {
+            using (var c = GetSqlConnection())
+            {
+                try
+                {
+                    var r =  await c.QueryAsync<StopAreaData>(
+                            @"select    m.Id,
+                                        m.API_ID,
+                                        m.Name,
+                                        m.Lon,
+                                        m.Lat
+                                        from MTN.StopArea m" );
+
+                    return r.AsList<StopAreaData>();
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+
+                return new List<StopAreaData>();
+            }
+        }
 
         public async Task<StopAreaData> FindById(int id)
         {

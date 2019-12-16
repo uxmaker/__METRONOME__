@@ -9,3 +9,14 @@ C:\Users\z3yx\Desktop\METRONOME_MASTERS_COMMIT\__METRONOME__.2019-12-02\Metronom
 C:\Users\z3yx\Desktop\METRONOME_MASTERS_COMMIT\__METRONOME__.2019-12-02\Metronome\Metronome.Api.DB\obj\Debug\netcoreapp2.1\Metronome.Api.DB.AssemblyInfo.cs
 C:\Users\z3yx\Desktop\METRONOME_MASTERS_COMMIT\__METRONOME__.2019-12-02\Metronome\Metronome.Api.DB\obj\Debug\netcoreapp2.1\Metronome.Api.DB.dll
 C:\Users\z3yx\Desktop\METRONOME_MASTERS_COMMIT\__METRONOME__.2019-12-02\Metronome\Metronome.Api.DB\obj\Debug\netcoreapp2.1\Metronome.Api.DB.pdb
+C:\Users\z3yx\Documents\GitHub\__METRONOME__\Metronome\Metronome.Api.DB\bin\Debug\netcoreapp2.1\appsettings.json
+C:\Users\z3yx\Documents\GitHub\__METRONOME__\Metronome\Metronome.Api.DB\bin\Debug\netcoreapp2.1\Metronome.Api.DB.deps.json
+C:\Users\z3yx\Documents\GitHub\__METRONOME__\Metronome\Metronome.Api.DB\bin\Debug\netcoreapp2.1\Metronome.Api.DB.runtimeconfig.json
+C:\Users\z3yx\Documents\GitHub\__METRONOME__\Metronome\Metronome.Api.DB\bin\Debug\netcoreapp2.1\Metronome.Api.DB.runtimeconfig.dev.json
+C:\Users\z3yx\Documents\GitHub\__METRONOME__\Metronome\Metronome.Api.DB\bin\Debug\netcoreapp2.1\Metronome.Api.DB.dll
+C:\Users\z3yx\Documents\GitHub\__METRONOME__\Metronome\Metronome.Api.DB\bin\Debug\netcoreapp2.1\Metronome.Api.DB.pdb
+C:\Users\z3yx\Documents\GitHub\__METRONOME__\Metronome\Metronome.Api.DB\obj\Debug\netcoreapp2.1\Metronome.Api.DB.csprojAssemblyReference.cache
+C:\Users\z3yx\Documents\GitHub\__METRONOME__\Metronome\Metronome.Api.DB\obj\Debug\netcoreapp2.1\Metronome.Api.DB.AssemblyInfoInputs.cache
+C:\Users\z3yx\Documents\GitHub\__METRONOME__\Metronome\Metronome.Api.DB\obj\Debug\netcoreapp2.1\Metronome.Api.DB.AssemblyInfo.cs
+C:\Users\z3yx\Documents\GitHub\__METRONOME__\Metronome\Metronome.Api.DB\obj\Debug\netcoreapp2.1\Metronome.Api.DB.dll
+C:\Users\z3yx\Documents\GitHub\__METRONOME__\Metronome\Metronome.Api.DB\obj\Debug\netcoreapp2.1\Metronome.Api.DB.pdb

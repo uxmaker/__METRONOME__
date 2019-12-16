@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DB\\Metronome.Api.DB.csproj": {}
+    "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api.DB\\Metronome.Api.DB.csproj": {}
   },
   "projects": {
-    "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DB\\Metronome.Api.DB.csproj": {
+    "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api.DB\\Metronome.Api.DB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DB\\Metronome.Api.DB.csproj",
+        "projectUniqueName": "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api.DB\\Metronome.Api.DB.csproj",
         "projectName": "Metronome.Api.DB",
-        "projectPath": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DB\\Metronome.Api.DB.csproj",
+        "projectPath": "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api.DB\\Metronome.Api.DB.csproj",
         "packagesPath": "C:\\Users\\z3yx\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DB\\obj\\",
+        "outputPath": "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api.DB\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -5477,11 +5477,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DAL.Tests\\Metronome.Api.DAL.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api.DAL.Tests\\Metronome.Api.DAL.Tests.csproj",
       "projectName": "Metronome.Api.DAL.Tests",
-      "projectPath": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DAL.Tests\\Metronome.Api.DAL.Tests.csproj",
+      "projectPath": "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api.DAL.Tests\\Metronome.Api.DAL.Tests.csproj",
       "packagesPath": "C:\\Users\\z3yx\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DAL.Tests\\obj\\",
+      "outputPath": "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api.DAL.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -5500,8 +5500,8 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj": {
-              "projectPath": "C:\\Users\\z3yx\\Desktop\\METRONOME_MASTERS_COMMIT\\__METRONOME__.2019-12-02\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj"
+            "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj": {
+              "projectPath": "C:\\Users\\z3yx\\Documents\\GitHub\\__METRONOME__\\Metronome\\Metronome.Api.DAL\\Metronome.Api.DAL.csproj"
             }
           }
         }

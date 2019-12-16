@@ -1,11 +1,11 @@
-﻿CREATE PROCEDURE MTN.sDeleteStopArea
+CREATE PROCEDURE metromind.SDeleteMember
 (
 	@Id INT
 )
 AS BEGIN
 	SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 	BEGIN TRAN;
-		DELETE FROM MTN.StopArea where Id = @Id;
+		DELETE FROM metromind.Members where Id = @Id;
 	COMMIT;
 	RETURN 0;
 END;

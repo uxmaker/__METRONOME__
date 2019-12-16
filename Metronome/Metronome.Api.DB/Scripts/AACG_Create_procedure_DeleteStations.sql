@@ -1,0 +1,11 @@
+CREATE PROCEDURE metromind.SDeleteStations
+(
+	@id INT
+)
+AS BEGIN
+	SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+	BEGIN TRAN;
+		DELETE FROM metromind.Stations where id = @id;
+	COMMIT;
+	RETURN 0;
+END;

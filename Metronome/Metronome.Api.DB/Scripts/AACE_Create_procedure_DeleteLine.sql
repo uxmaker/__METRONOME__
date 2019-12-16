@@ -1,11 +1,11 @@
-﻿CREATE PROCEDURE MTN.sDeleteLine
+CREATE PROCEDURE metromind.SDeleteLine
 (
-	@Id INT
+	@id INT
 )
 AS BEGIN
 	SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 	BEGIN TRAN;
-		DELETE FROM MTN.Line where Id = @Id;
+		DELETE FROM Metromind.Lines where id = @id;
 	COMMIT;
 	RETURN 0;
 END;

@@ -10,13 +10,15 @@
 
     /* === IMPORTS === */
     
-    @import 'https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css'; /* MAP BOX */
+     /* @import 'https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css';MAP BOX */
 
-    /* METRONOME CSS */
+    /* === METRONOME CSS === */
+
+    /*
     @import 'css/metronome-animations.css';
     @import 'css/metronome-fonts.css';
     @import 'css/metronome-layout.css';
-    @import 'css/metronome-colors.css';
+    @import 'css/metronome-colors.css';*/
 
     /* =============== */
 

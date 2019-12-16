@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -124,6 +125,17 @@ namespace Metronome.Api.Controllers
             await HttpContext.SignOutAsync(AuthCookieParameters.Scheme);
             ViewData["SpaHost"] = "http://localhost:8080/";
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Token()
+        {
+            var identity = User.Identities.SingleOrDefault(i => i.AuthenticationType == AuthCookieParameters.Type);
+            if (identity == null) return Ok(new { Success = false });
+            string userId = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string email = identity.FindFirst(ClaimTypes.Email).Value;
+            AuthToken token = _tokenService.GenerateToken(userId, email);
+            return Ok(new { Success = true, Bearer = token, Email = email });
         }
 
         // -- PRIVATE METHOD

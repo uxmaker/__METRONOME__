@@ -21,7 +21,7 @@ namespace Metronome.Api.Controllers
         }
 
         [HttpGet]
-        //[Authorize(AuthenticationSchemes = AuthCookieParameters.Scheme)]
+        [Authorize(AuthenticationSchemes = AuthCookieParameters.Scheme)]
         public async Task<IActionResult> GetStopAreas()
         {
             var stopAreas = await _stopAreaGateway.GetAll();

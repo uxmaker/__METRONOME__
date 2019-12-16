@@ -125,22 +125,7 @@ export default {
               }]
           }
         });
-        this.map.addLayer({
-          "id": "test",
-          "type": "symbol",
-          "source": "test",
-          "layout": {
-          // get the icon name from the source's "icon" property
-          // concatenate the name to get an icon from the style's sprite sheet
-          "icon-image": "train-icon",
-          "icon-size": 1.5,
-          // get the title name from the source's "title" property
-          "text-field": ["get", "title"],
-          "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-          "text-offset": [0, 0.6],
-          "text-anchor": "top"
-          }
-        });
+       
 
         var timebtwstations = 2000;
         var refreshtimer = 700;
@@ -227,7 +212,7 @@ export default {
 
           var label = document.createElement('label');
           label.setAttribute('for', layerID);
-          label.textContent = symbol;
+          label.textContent = 'ligne ' + symbol;
           filterGroup.appendChild(label);
 
           // When the checkbox changes, update the visibility of the layer.
@@ -245,8 +230,24 @@ export default {
           me.addMarker(element, me, mapboxgl);
         });
 
-         var stationid = 10;
+        var stationid = 10;
         var tempsrestant = 2;
+        this.map.addLayer({
+          "id": "test",
+          "type": "symbol",
+          "source": "test",
+          "layout": {
+          // get the icon name from the source's "icon" property
+          // concatenate the name to get an icon from the style's sprite sheet
+          "icon-image": "train-icon",
+          "icon-size": 1.5,
+          // get the title name from the source's "title" property
+          "text-field": ["get", "title"],
+          "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+          "text-offset": [0, 0.6],
+          "text-anchor": "top"
+          }
+        });
           
         window.setInterval( function() {
 
@@ -272,39 +273,8 @@ export default {
 
         }, refreshtimer);
         
-        //DATA FOR STOPS
-        /* this.map.on('click', 'points', async (e) => {
-          var mcoordinates = e.features[0].geometry.coordinates.slice();
-          var description = e.features[0].properties.title;
 
-          var timeleft = await me.UpdateSubway(e.features[0].properties.title);
-          //GET THE DATA FROM THE STOP|UPDATE|DISPLAY
-          //EXPECTED AS id = e.features[0].properties.id
-
-          // Ensure that if the map is zoomed out such that multiple
-          // copies of the feature are visible, the popup appears
-          // over the copy being pointed to.
-          while (Math.abs(e.lngLat.lng - mcoordinates[0]) > 180) {
-            mcoordinates[0] += e.lngLat.lng > mcoordinates[0] ? 360 : -360;
-          }
-          
-          new mapboxgl.Popup()
-            .setLngLat(mcoordinates)
-            .setHTML(description + "prochain train dans : " + timeleft + "min")
-            .addTo(me.map);
-        });
-
-        // Change the cursor to a ? when the mouse is over the subway stations.
-        me.map.on('mouseenter', 'points', function() {
-          me.map.getCanvas().style.cursor = 'help';
-        });
-        
-        // Change it back to a pointer when it leaves.
-        me.map.on('mouseleave', 'points', function() {
-          me.map.getCanvas().style.cursor = '';
-        }); */
       }
-
     });
   },
 
@@ -396,10 +366,10 @@ export default {
     }
 
     .filter-group {
-    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font: 14px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     font-weight: 600;
     position: absolute;
-    top: 10px;
+    top: 50px;
     right: 10px;
     z-index: 1;
     border-radius: 3px;
@@ -408,11 +378,11 @@ export default {
     }
     
     .filter-group input[type='checkbox']:first-child + label {
-    border-radius: 3px 3px 0 0;
+    border-radius: 5px 5px 0 0;
     }
     
     .filter-group label:last-child {
-    border-radius: 0 0 3px 3px;
+    border-radius: 0 0 5px 5px;
     border: none;
     }
     
@@ -421,7 +391,7 @@ export default {
     }
     
     .filter-group input[type='checkbox'] + label {
-    background-color: #3386c0;
+    background-color: #b0b0b0;
     display: block;
     cursor: pointer;
     padding: 10px;
@@ -429,17 +399,17 @@ export default {
     }
     
     .filter-group input[type='checkbox'] + label {
-    background-color: #3386c0;
+    background-color: #b0b0b0;
     text-transform: capitalize;
     }
     
     .filter-group input[type='checkbox'] + label:hover,
     .filter-group input[type='checkbox']:checked + label {
-    background-color: #4ea0da;
+    background-color: #b0b0b0;
     }
     
-    .filter-group input[type='checkbox']:checked + label:before {
-    content: '✔';
-    margin-right: 5px;
+    .filter-group input[type='checkbox']:checked + label:after {
+    content: '✔️';
+    margin-left: 5px;
     }
 </style>

@@ -17,6 +17,7 @@ namespace Metronome.Api.Daemon.Lib
     internal class Ligne { public string id { get; set; } public List<string> Stations { get; set; } }
     internal class Jointure { public List<Ligne> Lignes { get; set; } }
 
+    internal class ListHorraires { public List<HorrairesData> Horraires { get; set; } }
     public class Navitia_Daemon : Daemon
     {
         readonly DaemonOptions _options;
@@ -40,6 +41,7 @@ namespace Metronome.Api.Daemon.Lib
         public async override Task Init()
         {
             await GetAndInsertLines();
+            await InsertJointure();
         }
 
         public async override Task Run() { await Task.Delay(100); }
@@ -64,8 +66,10 @@ namespace Metronome.Api.Daemon.Lib
                         Console.WriteLine($"{line.API_ID} : {line.Name} : {line.Color} : {line.Code} : {line.Opening_time} -- {line.Closing_time}"); 
                         await GetAndInsertStations(line);
                     }
+
                 }
             }
+            
         }
 
         private async Task GetAndInsertStations(LineData line)
@@ -85,7 +89,7 @@ namespace Metronome.Api.Daemon.Lib
                     }
                 }
             }
-            await InsertJointure();
+            
         }
         private async Task InsertJointure()
         {
@@ -110,6 +114,31 @@ namespace Metronome.Api.Daemon.Lib
                 }
             }
         }
+
+        // Pas encore fonctionnelle
+        /*public async Task GetHorrairesLignes()
+        {
+            Task<IEnumerable<LineData>> AllLines = _lineGateway.GetAll();
+            List<LineData> aaa = new List<LineData>();
+            foreach (LineData li in aaa)
+            {
+                WebRequest wR = WebRequest.Create(_options.API_StationUrl(li.API_ID));
+                wR = ConfigureRequest(wR);
+                using (var webRequestResponse = wR.GetResponse())
+                {
+                    using (var streamResponse = new StreamReader(webRequestResponse.GetResponseStream()))
+                    {
+                        var horraireslist = JsonConvert.DeserializeObject<ListHorraires>(streamResponse.ReadToEnd().ToString());
+                        foreach (var horraire in horraireslist.Horraires)
+                        {
+                            Console.WriteLine(horraire.stop_point.name);
+                            Console.WriteLine(horraire.stop_date_time.arrival_date_time);
+
+                        }
+                    }
+                }
+            }
+        }*/
 
         private WebRequest ConfigureRequest(WebRequest request)
         {

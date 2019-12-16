@@ -14,3 +14,11 @@ C:\Users\bapti\OneDrive\Bureau\__METRONOME__-master\Metronome\Metronome.Api.DAL\
 C:\Users\bapti\OneDrive\Bureau\__METRONOME__-master\Metronome\Metronome.Api.DAL\obj\Debug\netcoreapp3.0\Metronome.Api.DAL.AssemblyInfo.cs
 C:\Users\bapti\OneDrive\Bureau\__METRONOME__-master\Metronome\Metronome.Api.DAL\obj\Debug\netcoreapp3.0\Metronome.Api.DAL.dll
 C:\Users\bapti\OneDrive\Bureau\__METRONOME__-master\Metronome\Metronome.Api.DAL\obj\Debug\netcoreapp3.0\Metronome.Api.DAL.pdb
+C:\Users\bapti\OneDrive\Bureau\GitMetronome\__METRONOME__\Metronome\Metronome.Api.DAL\bin\Debug\netcoreapp3.0\Metronome.Api.DAL.deps.json
+C:\Users\bapti\OneDrive\Bureau\GitMetronome\__METRONOME__\Metronome\Metronome.Api.DAL\bin\Debug\netcoreapp3.0\Metronome.Api.DAL.dll
+C:\Users\bapti\OneDrive\Bureau\GitMetronome\__METRONOME__\Metronome\Metronome.Api.DAL\bin\Debug\netcoreapp3.0\Metronome.Api.DAL.pdb
+C:\Users\bapti\OneDrive\Bureau\GitMetronome\__METRONOME__\Metronome\Metronome.Api.DAL\obj\Debug\netcoreapp3.0\Metronome.Api.DAL.csprojAssemblyReference.cache
+C:\Users\bapti\OneDrive\Bureau\GitMetronome\__METRONOME__\Metronome\Metronome.Api.DAL\obj\Debug\netcoreapp3.0\Metronome.Api.DAL.AssemblyInfoInputs.cache
+C:\Users\bapti\OneDrive\Bureau\GitMetronome\__METRONOME__\Metronome\Metronome.Api.DAL\obj\Debug\netcoreapp3.0\Metronome.Api.DAL.AssemblyInfo.cs
+C:\Users\bapti\OneDrive\Bureau\GitMetronome\__METRONOME__\Metronome\Metronome.Api.DAL\obj\Debug\netcoreapp3.0\Metronome.Api.DAL.dll
+C:\Users\bapti\OneDrive\Bureau\GitMetronome\__METRONOME__\Metronome\Metronome.Api.DAL\obj\Debug\netcoreapp3.0\Metronome.Api.DAL.pdb

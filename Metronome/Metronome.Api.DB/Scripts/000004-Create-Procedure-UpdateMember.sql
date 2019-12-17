@@ -1,0 +1,12 @@
+CREATE PROCEDURE MTN.sUpdateMember
+(
+	@Id INT,
+	@Password varbinary(255)
+)
+AS BEGIN
+	SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+	BEGIN TRAN;
+		UPDATE MTN.Member set [PASSWORD] = @Password where Id = @Id;
+	COMMIT;
+	RETURN 0;
+END;

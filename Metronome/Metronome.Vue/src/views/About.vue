@@ -3,6 +3,9 @@
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
     <div id='map'></div>
     <nav id="filter-group" class="filter-group"></nav>
+    <div class="filter-ctrl">
+      <input id="filter-input" type="text" name="filter" placeholder="Recherche"/>
+    </div>
   </div>
 </template>
 
@@ -41,6 +44,7 @@ export default {
         await this.newImage('http://localhost:5000/Images/logo.png', 'subway-icon1', me);
         await this.newImage('http://localhost:5000/Images/marker-40.png', 'user-icon', me);
         await this.newImage('http://localhost:5000/Images/train.png', 'train-icon', me);
+        
 
         await navigator.geolocation.getCurrentPosition(this.success);
 
@@ -48,9 +52,11 @@ export default {
         console.log(geojson);
 
         let coordline1 = [];
+        var names = [];
 
         geojson["features"].forEach(element => {
           coordline1.push(element["geometry"]["coordinates"]);
+          names.push(element["properties"]["title"].toLowerCase());
         });
         //console.log(coordline1);
         
@@ -106,7 +112,7 @@ export default {
           }
         }); */
 
-        this.map.jumpTo({ 'center': [this.crd.longitude, this.crd.latitude], 'zoom': 12 });
+        //this.map.jumpTo({ 'center': [this.crd.longitude, this.crd.latitude], 'zoom': 12 });
 
         //var testcoord =  geojson.features[0].geometry.coordinates;
         var origin = geojson.features[0].geometry.coordinates;
@@ -228,6 +234,29 @@ export default {
 
         layersName.forEach(element => {
           me.addMarker(element, me, mapboxgl);
+        });
+
+        var filterInput = document.getElementById('filter-input');
+        filterInput.addEventListener('keyup', async function(e) {
+          // If the input value matches a layerID set
+          // it's visibility to 'visible' or else hide it.
+          var value = e.target.value.toLowerCase();
+          let id = names.indexOf(value);
+          //console.log(names);
+          if(id > -1) {
+            console.log(id);
+            var mcoordinates = geojson.features[id].geometry.coordinates.slice();
+            var description = geojson.features[id].properties.title;
+  
+            var timeleft = await me.UpdateSubway(geojson.features[id].properties.title);
+            new mapboxgl.Popup()
+              .setLngLat(mcoordinates)
+              .setHTML(description + " prochain train dans : " + timeleft + "min")
+              .addTo(me.map);
+
+            me.map.jumpTo({ 'center': geojson.features[id].geometry.coordinates, 'zoom': 12 });
+            
+          }
         });
 
         var stationid = 10;
@@ -369,7 +398,7 @@ export default {
     font: 14px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     font-weight: 600;
     position: absolute;
-    top: 50px;
+    top: 120px;
     right: 10px;
     z-index: 1;
     border-radius: 3px;
@@ -411,5 +440,26 @@ export default {
     .filter-group input[type='checkbox']:checked + label:after {
     content: '✔️';
     margin-left: 5px;
+    }
+
+    .filter-ctrl {
+    position: absolute;
+    top: 50px;
+    right: 30px;
+    z-index: 1;
+    width: 180px;
+    }
+    
+    .filter-ctrl input[type='text'] {
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    width: 100%;
+    border: 0;
+    background-color: #fff;
+    height: 40px;
+    margin: 0;
+    color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
     }
 </style>

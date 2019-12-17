@@ -1,2 +1,0 @@
-CREATE VIEW MTN.vMember
-AS SELECT * FROM MTN.Member;

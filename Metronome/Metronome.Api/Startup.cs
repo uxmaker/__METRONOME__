@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 
@@ -35,14 +38,29 @@ namespace Metronome.Api
             _authentication.ConfigureServices(services);
             _mvc.ConfigureServices(services);
         }
-
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment()){ app.UseDeveloperExceptionPage(); }
             _cors.ConfigureApp(app, env);
             _authentication.ConfigureApp(app, env);
             _mvc.ConfigureApp(app, env);
-            app.UseStaticFiles();
+
+            var contentTypeProvider = new FileExtensionContentTypeProvider();
+            contentTypeProvider.Mappings[".geojson"] = "application/json";
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Maps")),
+                RequestPath = "/Maps",
+                ContentTypeProvider = contentTypeProvider
+            });
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images")),
+                RequestPath = "/Images",
+                ContentTypeProvider = new FileExtensionContentTypeProvider()
+
+            });
         }
     }
 }

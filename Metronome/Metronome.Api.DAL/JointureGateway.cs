@@ -7,7 +7,7 @@ using Dapper;
 
 namespace Metronome.Api.DAL
 {
-    public class JointureGateway :AbsGateway
+    public class JointureGateway : AbsGateway
     {
         public JointureGateway(string connectionString) : base(connectionString) { }
 

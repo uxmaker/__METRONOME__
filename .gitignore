@@ -256,3 +256,5 @@ paket-files/
 
 src/**/src/**/*.js
 .vscode
+/Metronome/Metronome.Api.DB/appsettings.json
+/Metronome/.vs/Metronome/v16/.suo

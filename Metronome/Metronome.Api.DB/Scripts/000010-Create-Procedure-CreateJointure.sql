@@ -8,6 +8,7 @@ Create PROCEDURE MTN.sCreateJointure
 AS BEGIN
 	SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 	BEGIN TRAN;
+		IF EXISTS( SELECT * FROM MTN.Jointure j WHERE j.LigneId =(select Id from MTN.Line where code=@LigneCode) AND j.StopAreaId1 = (select Id from MTN.StopArea s where s.[Name]=@StopAreaName1) and  j.StopAreaId2 = (select Id from MTN.StopArea s where s.[Name]=@StopAreaName2))
 		BEGIN
 			ROLLBACK;
 			RETURN 1;

@@ -3,19 +3,30 @@
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
     <div id='map'></div>
     <nav id="filter-group" class="filter-group"></nav>
-    <div class="filter-ctrl">
-      <input id="filter-input" type="text" name="filter" placeholder="Recherche"/>
-    </div>
+     <autocomplete
+      class='searchbar'
+      :search="search"
+      placeholder="Cherche une station"
+      aria-label="Cherche une station"
+      @submit="searchsubmit"
+      auto-select
+    ></autocomplete>
   </div>
 </template>
 
 <script>
+
+
 export default {
   data() {
     return {
       map: null,
+      mapboxgldata: null,
+      popupinfo: null,
+      geojsondata: null,
       origin: null,
       goal: null,
+      stationsname: null,
       refreshtimer: null, 
       crd: null    
     }
@@ -25,6 +36,7 @@ export default {
 
     var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
     mapboxgl.accessToken = 'pk.eyJ1Ijoic3VwZXJ5YW5uODkiLCJhIjoiY2syNGgwaG1yMjM2NjNobXY0eTZyNDhtdiJ9.PapYOTQWtc2d0HP7VLCbDw';
+    this.mapboxgldata = mapboxgl;
     //pas le laisser ici
     this.map = new mapboxgl.Map({
       container: 'map',
@@ -49,15 +61,17 @@ export default {
         await navigator.geolocation.getCurrentPosition(this.success);
 
         var geojson = await this.JsonGet();
-        console.log(geojson);
+        this.geojsondata = geojson; 
+        //console.log(geojson);
 
         let coordline1 = [];
         var names = [];
 
         geojson["features"].forEach(element => {
           coordline1.push(element["geometry"]["coordinates"]);
-          names.push(element["properties"]["title"].toLowerCase());
+          names.push(element["properties"]["title"]);
         });
+        this.stationsname = names;
         //console.log(coordline1);
         
         this.map.addControl(
@@ -235,7 +249,7 @@ export default {
         layersName.forEach(element => {
           me.addMarker(element, me, mapboxgl);
         });
-
+/* 
         var filterInput = document.getElementById('filter-input');
         filterInput.addEventListener('keyup', async function(e) {
           // If the input value matches a layerID set
@@ -257,7 +271,7 @@ export default {
             me.map.jumpTo({ 'center': geojson.features[id].geometry.coordinates, 'zoom': 12 });
             
           }
-        });
+        }); */
 
         var stationid = 10;
         var tempsrestant = 2;
@@ -370,6 +384,33 @@ export default {
       // Add the loaded image to the style's sprite with the ID.
       me.map.addImage(name, image);
       });
+    },
+
+    search(input) {
+      if (input.length < 1) { return [] }
+      return this.stationsname.filter(name => {
+        return name.toLowerCase()
+          .startsWith(input.toLowerCase())
+      })
+    }, 
+
+    async searchsubmit(result) {
+          let id = this.stationsname.indexOf(result);
+          console.log(id);
+          if(id > -1) {
+            //console.log(id);
+            if(this.popupinfo !== null) this.popupinfo.remove(); 
+            var mcoordinates = this.geojsondata.features[id].geometry.coordinates.slice();
+            var description = this.geojsondata.features[id].properties.title;
+  
+            var timeleft = await this.UpdateSubway(this.geojsondata.features[id].properties.title);
+            this.popupinfo = new this.mapboxgldata.Popup()
+              .setLngLat(mcoordinates)
+              .setHTML(description + " prochain train dans : " + timeleft + "min")
+              .addTo(this.map);
+
+            this.map.jumpTo({ 'center': this.geojsondata.features[id].geometry.coordinates, 'zoom': 12 });
+          }
     }
 
   }
@@ -461,5 +502,13 @@ export default {
     padding: 10px;
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
+    }
+
+    .searchbar {
+      position: absolute;
+      top: 50px;
+      right: 10px;
+      z-index: 1;
+      width: 220px;
     }
 </style>

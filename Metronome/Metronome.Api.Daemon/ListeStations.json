@@ -127,7 +127,7 @@
         "Denfert Rochereau",
         "Mouton / Duvernet",
         "Alésia",
-        "Porte d'Orléans,",
+        "Porte d'Orléans",
         "Mairie de Montrouge"
       ]
     },
@@ -135,7 +135,7 @@
       "id": "5",
       "Stations": [
         "Bobigny Pablo Picasso",
-        "Bobigny - Pantin - RaymondQueneau",
+        "Bobigny - Pantin - Raymond Queneau",
         "Église de Pantin",
         "Hoche",
         "Porte de Pantin",
@@ -154,7 +154,7 @@
         "Gare d'Austerlitz",
         "Saint-Marcel",
         "Campo Formio",
-        "Placed'Italie"
+        "Place d'Italie"
       ]
     },
     {
@@ -171,7 +171,7 @@
         "Cambronne",
         "Sèvres / Lecourbe",
         "Pasteur",
-        "GareMontparnasse",
+        "Gare Montparnasse",
         "Edgar Quinet",
         "Raspail",
         "Denfert Rochereau",
@@ -193,64 +193,63 @@
     {
       "id": "7",
       "Stations": [
-        "LaCourneuve-8Mai1945",
-        "Fortd'Aubervilliers,",
-        "Aubervilliers/Pantin",
-        "PortedelaVillette",
-        "CorentinCariou",
+        "La Courneuve - 8 Mai 1945",
+        "Fort d'Aubervilliers",
+        "Aubervilliers / Pantin",
+        "Porte de la Villette",
+        "Corentin Cariou",
         "Crimée",
         "Riquet",
         "Stalingrad",
-        "LouisBlanc",
-        "ChâteauLandon",
-        "Garedel'Est",
+        "Louis Blanc",
+        "Château Landon",
+        "Gare de l'Est",
         "Poissonnière",
         "Cadet",
-        "LePeletier",
-        "Chausséed'Antin/laFayette",
+        "Le Peletier",
+        "Chaussée d'Antin / la Fayette",
         "Opéra",
         "Pyramides",
-        "PalaisRoyalMuséeduLouvre",
-        "PontNeuf/QuaiduLouvre",
+        "Palais Royal Musée du Louvre",
+        "Pont Neuf / Quai du Louvre",
         "Châtelet",
-        "PontMarie",
-        "Sully-Morland",
+        "Pont Marie",
+        "Sully - Morland",
         "Jussieu",
-        "PlaceMonge",
-        "Censier/Daubenton",
+        "Place Monge",
+        "Censier / Daubenton",
         "Les Gobelins",
-        "Placed'Italie",
-        "Italie/Tolbiac",
-        "MaisonBlanche"
+        "Place d'Italie",
+        "Italie / Tolbiac",
+        "Maison Blanche"
       ]
     },
     {
       "id": "7",
       "Stations": [
-        "MaisonBlanche",
-        "Ported'Italie",
-        "Portede",
-        "Choisy",
-        "Ported'Ivry",
-        "PierreetMarieCurie",
-        "Mairied'Ivry"
+        "Maison Blanche",
+        "Porte d'Italie",
+        "Porte de Choisy",
+        "Porte d'Ivry",
+        "Pierre et Marie Curie",
+        "Mairie d'Ivry"
       ]
     },
     {
       "id": "7",
       "Stations": [
-        "MaisonBlanche",
-        "LeKremlinBicêtre",
-        "Villejuif/LéoLagrange",
-        "Villejuif/PaulVaillantCouturierHôpitalPaulBrousse",
-        "VillejuifLouisAragon"
+        "Maison Blanche",
+        "Le Kremlin Bicêtre",
+        "Villejuif / Léo Lagrange",
+        "Villejuif / Paul Vaillant Couturier / Hôpital Paul Brousse",
+        "Villejuif Louis Aragon"
       ]
     },
     {
       "id": "7B",
       "Stations": [
         "Louis Blanc",
-        "Jaurés",
+        "Jaurès",
         "Bolivar",
         "Buttes Chaumont",
         "Botzaris",
@@ -269,15 +268,15 @@
         "Boucicaut",
         "Félix Faure",
         "Commerce",
-        "La Motte Piquet / Grenelle",
+        "La Motte Picquet / Grenelle",
         "École Militaire",
         "La Tour Maubourg",
         "Invalides",
         "Concorde",
-        "Madelaine",
+        "Madeleine",
         "Opéra",
         "Richelieu-Drouot",
-        "Grands Boulevards",
+        "Grands Boulevards (Rue Montmartre)",
         "Bonne Nouvelle",
         "Strasbourg Saint-Denis",
         "République ",
@@ -289,13 +288,13 @@
         "Faidherbe / Chaligny",
         "Reuilly / Diderot",
         "Montgallet",
-        "Dausmenil",
+        "Daumesnil",
         "Michel Bizot",
         "Porte Dorée",
         "Porte de Charenton",
         "Liberté",
         "Charenton / Écoles",
-        "École Vétérinaire de Maisons Alfor",
+        "École Vétérinaire de Maisons Alfort",
         "Maisons Alfort / Stade",
         "Maisons Alfort les Juilliottes",
         "Créteil l'Echat / Hôpital Henri Mondor",
@@ -313,7 +312,7 @@
         "Porte de Saint-Cloud",
         "Exelmans",
         "Michel Ange - Molitor",
-        "Michel Ange _ Auteuil",
+        "Michel Ange - Auteuil",
         "Jasmin",
         "Ranelagh",
         "La Muette",
@@ -327,8 +326,8 @@
         "Saint-Augustin",
         "Havre Caumartin",
         "Chaussée d'Antin / la Fayette",
-        "Richelieu Drouot",
-        "Grands Boulevards",
+        "Richelieu-Drouot",
+        "Grands Boulevards (Rue Montmartre)",
         "Bonne Nouvelle",
         "Strasbourg Saint-Denis",
         "République",
@@ -336,7 +335,7 @@
         "Saint-Ambroise",
         "Voltaire / Léon Blum",
         "Charonne",
-        "Rue des Boulets",
+        "Boulets / Montreuil",
         "Nation",
         "Buzenval",
         "Maraîchers",
@@ -371,8 +370,8 @@
         "Porte de la Chapelle",
         "Marx Dormoy",
         "Marcadet / Poissonniers",
-        "Jules Joffin",
-        "Lamarck / Coulaincourt",
+        "Jules Joffrin",
+        "Lamarck / Caulaincourt",
         "Abbesses",
         "Pigalle",
         "Saint-Georges",
@@ -392,8 +391,8 @@
         "Pasteur",
         "Volontaires",
         "Vaugirard (Adolphe Chérioux)",
-        "onvention",
-        "Porte des Versailles",
+        "Convention",
+        "Porte de Versailles",
         "Corentin Celton",
         "Mairie d'Issy"
 
@@ -402,13 +401,13 @@
     {
       "id": "13",
       "Stations": [
-        "Chatillon Montrouge",
+        "Châtillon Montrouge",
         "Malakoff / Rue Etienne Dolet",
         "Malakoff / Plateau de Vanves",
         "Porte de Vanves",
         "Plaisance",
-        "Pernety",
-        "Gaîté",
+        "Pernéty",
+        "Gaite",
         "Gare Montparnasse",
         "Duroc",
         "Saint-Francois Xavier",
@@ -431,7 +430,7 @@
         "Mairie de Clichy",
         "Gabriel Péri Asnières Gennevilliers",
         "Les Agnettes",
-        "snières Gennevilliers les Courtilles"
+        "Asnières Gennevilliers les Courtilles"
 
       ]
     },
@@ -439,7 +438,7 @@
       "id": "13",
       "Stations": [
         "La Fourche",
-        "Guy Môquet",
+        "Guy-Môquet",
         "Porte de Saint-Ouen",
         "Garibaldi",
         "Mairie de Saint-Ouen",
@@ -452,13 +451,13 @@
     {
       "id": "14",
       "Stations": [
-        "Gare de Saint-Lazare",
+        "Gare Saint-Lazare",
         "Madeleine",
         "Pyramides",
         "Châtelet",
         "Gare de Lyon",
         "Bercy",
-        "Cour Saint-Émillion",
+        "Cour Saint-Émilion",
         "Bibliothèque François Mitterrand",
         "Olympiades"
       ]

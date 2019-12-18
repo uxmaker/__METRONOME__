@@ -13,12 +13,33 @@ namespace Metronome.Api.DAL.Navitia
 
         public LineGateway(string connectionString) : base(connectionString) { }
 
-        public async Task<IEnumerable<LineData>> GetAll()
+        public async Task<List<LineData>> GetAll()
         {
+            var result = new List<LineData>();
+
             using (var c = GetSqlConnection())
             {
-                return await c.QueryAsync<LineData>(@"select Id, [name], ApiID, HEX from MTN.Line");
+                try
+                {
+                    var response = await c.QueryAsync<LineData>(
+                            @"select    m.Id,
+                                        m.API_ID,
+                                        m.Name,
+                                        m.Code,
+                                        m.Color,
+                                        m.Opening_time,
+                                        m.Closing_time
+                                        from MTN.Line m"
+                        );
+                    result = response.AsList();
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e);
+                }
             }
+
+            return result;
         }
 
         public async Task<LineData> FindById(int id)

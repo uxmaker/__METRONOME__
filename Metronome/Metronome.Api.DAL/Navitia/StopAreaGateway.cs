@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Data;
 using Dapper;
+using System.Collections.Generic;
 
 namespace Metronome.Api.DAL.Navitia
 {
@@ -10,6 +11,57 @@ namespace Metronome.Api.DAL.Navitia
         static StopAreaData NullStopArea() => new StopAreaData(){ Id = -1, API_ID = null, Coord = null, Lat = 0f, Lon = 0f, Name = null };
 
         public StopAreaGateway(string connectionString) : base(connectionString) { }
+
+        public async Task<List<StopAreaData>> GetAll()
+        {
+            using (var c = GetSqlConnection())
+            {
+                try
+                {
+                    var r = await c.QueryAsync<StopAreaData>(
+                            @"select    m.Id,
+                                        m.API_ID,
+                                        m.Name,
+                                        m.Lon,
+                                        m.Lat
+                                        from MTN.StopArea m");
+
+                    return r.AsList<StopAreaData>();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+
+                return new List<StopAreaData>();
+            }
+        }
+
+        public async Task<List<int>> GetLines(int id)
+        {
+            List<int> result = new List<int>();
+
+            using (var c = GetSqlConnection())
+            {
+                try
+                {
+                    var response = await c.QueryAsync<JointureData>(
+                        @"select m.Id, m.LigneId, m.StopAreaId1, m.StopAreaId2
+                        from MTN.Jointure m
+                        where m.StopAreaId1 = @Id or m.StopAreaId2 = @Id",
+                        new { Id = id }
+                        );
+
+                    foreach (var element in response.AsList()) { if(!result.Contains(element.LigneId)) result.Add(element.LigneId); }
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+
+            return result;
+        }
 
         public async Task<StopAreaData> FindById(int id)
         {

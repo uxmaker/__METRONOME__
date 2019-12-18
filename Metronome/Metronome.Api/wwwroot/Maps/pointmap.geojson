@@ -1,0 +1,280 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.239150146451493, 48.89203441877151 ]
+            },
+            "properties": {
+                "title": "La Défense",
+                "ligne": 1 
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.248917775851328, 48.88677555978798 ]
+            },
+            "properties": {
+                "title": "Esplanade de La Défense",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.258922605272076, 48.88555130589665 ]
+            },
+            "properties": {
+                "title": "Pont de Neuilly",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.271915176017791, 48.88129918549113 ]
+            },
+            "properties": {
+                "title": "Les Sablons",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.280448865923247, 48.878158015689465 ]
+            },
+            "properties": {
+                "title": "Porte Maillot",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.288830858328374, 48.875860971516644 ]
+            },
+            "properties": {
+                "title": "Argentine",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.295467295706086, 48.8746412110769 ]
+            },
+            "properties": {
+                "title": "Charles de Gaulle - Étoile",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.30030586185725, 48.87218927378012 ]
+            },
+            "properties": {
+                "title": "George V",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.309926324470496, 48.868812631860955 ]
+            },
+            "properties": {
+                "title": "Franklin D.Roosevelt",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.3134687431580963, 48.86803149252129 ]
+            },
+            "properties": {
+                "title": "Champ-Élysées - Clemenceau",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.3226236762940973, 48.867296005540844 ]
+            },
+            "properties": {
+                "title": "Concorde",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.329094954429427, 48.86478016250008 ]
+            },
+            "properties": {
+                "title": "Tuileries",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.336028731198637, 48.862578527141316 ]
+            },
+            "properties": {
+                "title": "Palais Royal - Musée du Louvre",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.340578239561336, 48.860556322770734 ]
+            },
+            "properties": {
+                "title": "Louvre - Rivoli",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.3463121756827903, 48.85732954239605 ]
+            },
+            "properties": {
+                "title": "Châtelet",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.350302602371364, 48.856061944099835 ]
+            },
+            "properties": {
+                "title": "Hôtel de Ville",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.362056115197584, 48.854990571006404 ]
+            },
+            "properties": {
+                "title": "Saint-Paul",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.369545320283473, 48.85239140153054 ]
+            },
+            "properties": {
+                "title": "Bastille",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.37344920496318, 48.84555978708341 ]
+            },
+            "properties": {
+                "title": "Gare de Lyon",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.387490443468507, 48.84752295573372 ]
+            },
+            "properties": {
+                "title": "Reuilly - Diderot",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.397771743610895, 48.8474552623419 ]
+            },
+            "properties": {
+                "title": "Nation",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.410231313815251, 48.84700789118935 ]
+            },
+            "properties": {
+                "title": "Porte de Vincennes",
+                "ligne": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.418999828109256, 48.84623825662077 ]
+            },
+            "properties": {
+                "title": "Saint-Mandé",
+                "ligne": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.4272915748023243, 48.84552226230954 ]
+            },
+            "properties": {
+                "title": "Bérault",
+                "ligne": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 2.441669417641232, 48.84456683341415 ]
+            },
+            "properties": {
+                "title": "Château de Vincennes",
+                "ligne": 2
+            }
+        }
+    ]
+}

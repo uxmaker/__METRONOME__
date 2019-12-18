@@ -33,8 +33,8 @@ namespace Metronome.Api.Extensions.GeoJson
 
                 var position = new List<float>()
                 {
-                    stopArea.Lat,
-                    stopArea.Lon
+                    stopArea.Lon,
+                    stopArea.Lat
                 };
 
                 var properties = new StopAreaPropertiesGJ()

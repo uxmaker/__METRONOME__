@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Metronome.Api.Daemon.Lib;
+using Metronome.Api.DAL;
 using Metronome.Api.DAL.Navitia;
 
 namespace Metronome.Api.Daemon
@@ -19,7 +20,7 @@ namespace Metronome.Api.Daemon
                 // <OR> "48f07b3d-b3e5-4c89-b7ac-768148e8da72"
             };
 
-            manager.Add(new Navitia_Daemon(stationOpt, new LineGateway(stationOpt.ConnectionString), new StopAreaGateway(stationOpt.ConnectionString)));
+            manager.Add(new Navitia_Daemon(stationOpt, new LineGateway(stationOpt.ConnectionString), new StopAreaGateway(stationOpt.ConnectionString), new JointureGateway(stationOpt.ConnectionString)));
 
             manager.Add(new Template_Daemon(5000));
             

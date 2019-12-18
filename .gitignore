@@ -28,7 +28,7 @@ log/
 # Visual Studio 2015 cache/options directory
 .vs/
 # Uncomment if you have tasks that create the project's static files in wwwroot
-wwwroot/
+#wwwroot/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -257,5 +257,5 @@ paket-files/
 src/**/src/**/*.js
 .vscode
 Metronome/Metronome.Api/appsettings.json
-Metronome/Metronome.Api.DB/appsettings.json
-
+/Metronome/Metronome.Api.DB/appsettings.json
+/Metronome/.vs/Metronome/v16/.suo

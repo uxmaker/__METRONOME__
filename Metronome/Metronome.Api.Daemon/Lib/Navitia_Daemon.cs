@@ -15,7 +15,7 @@ namespace Metronome.Api.Daemon.Lib
     internal class LineList { public List<LineData> Lines { get; set; }  }
 
     internal class Ligne { public string id { get; set; } public List<string> Stations { get; set; } }
-    internal class Jointure { public List<Ligne> Lignes { get; set; } }
+    internal class RootObject { public List<Ligne> Ligne { get; set; } }
 
     internal class ListHorraires { public List<HorrairesData> Horraires { get; set; } }
     public class Navitia_Daemon : Daemon
@@ -27,12 +27,13 @@ namespace Metronome.Api.Daemon.Lib
 
         // -- PUBLIC METHODS
 
-        public Navitia_Daemon(DaemonOptions options, LineGateway lineGateway, StopAreaGateway stopAreaGateway)
+        public Navitia_Daemon(DaemonOptions options, LineGateway lineGateway, StopAreaGateway stopAreaGateway, JointureGateway jointureGateway)
             :base(524160000)
         {
             _options = options;
             _lineGateway = lineGateway;
             _stopAreaGateway = stopAreaGateway;
+            _jointureGateway = jointureGateway;
             
         }
 
@@ -41,7 +42,7 @@ namespace Metronome.Api.Daemon.Lib
         public async override Task Init()
         {
             await GetAndInsertLines();
-            await InsertJointure();
+            
         }
 
         public async override Task Run() { await Task.Delay(100); }
@@ -69,7 +70,8 @@ namespace Metronome.Api.Daemon.Lib
 
                 }
             }
-            
+            await InsertJointure();
+
         }
 
         private async Task GetAndInsertStations(LineData line)
@@ -93,10 +95,10 @@ namespace Metronome.Api.Daemon.Lib
         }
         private async Task InsertJointure()
         {
-            var stream = File.OpenText("C:/Users/bapti/OneDrive/Bureau/ListeStations.json");
+            var stream = File.OpenText("../../../ListeStations.json");
             string content = stream.ReadToEnd();
-            Jointure obj = JsonConvert.DeserializeObject<Jointure>(content);
-            foreach (Ligne li in obj.Lignes)
+            RootObject obj = JsonConvert.DeserializeObject<RootObject>(content);
+            foreach (Ligne li in obj.Ligne)
             {
                 for (int i = 0; i < li.Stations.Count - 1; i++)
                 {
@@ -105,9 +107,11 @@ namespace Metronome.Api.Daemon.Lib
                         int pos = li.Stations[i + 1].IndexOf("%");
                         li.Stations[i + 1] = li.Stations[i + 1].Remove(pos);
                         await _jointureGateway.Create(li.id, li.Stations[i], li.Stations[i + 1]);
+                        Console.WriteLine(li.id +"   " + li.Stations[i]);
                     }
                     else
                     {
+                        Console.WriteLine(li.id + "   " + li.Stations[i]);
                         await _jointureGateway.Create(li.id, li.Stations[i], li.Stations[i + 1]);
                         await _jointureGateway.Create(li.id, li.Stations[i + 1], li.Stations[i]);
                     }

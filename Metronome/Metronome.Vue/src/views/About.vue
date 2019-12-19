@@ -61,6 +61,18 @@ export default {
         await navigator.geolocation.getCurrentPosition(this.success);
 
         var geojson = await this.JsonGet();
+
+        geojson["features"].forEach(function(feature) {
+          let ligne = feature.properties['ligne'];
+          //if(ligne.length == 0) {console.log(feature.properties.title)};
+          feature.properties.ligne0 = (ligne.length > 0) ? ligne[0] : "";
+          feature.properties.ligne1 = (ligne.length > 1) ? ligne[1] : "";
+          feature.properties.ligne2 = (ligne.length > 2) ? ligne[2] : "";
+          feature.properties.ligne3 = (ligne.length > 3) ? ligne[3] : "";
+          feature.properties.ligne4 = (ligne.length > 4) ? ligne[4] : "";
+          feature.properties.ligne5 = (ligne.length > 5) ? ligne[5] : "";
+        });
+        
         this.geojsondata = geojson; 
         //console.log(geojson);
 
@@ -84,7 +96,7 @@ export default {
           })
         );
         
-        this.map.addLayer({
+        /* this.map.addLayer({
           "id": "route",
           "type": "line",
           "source": {
@@ -106,7 +118,7 @@ export default {
           "line-color": "#FFCD00",
           "line-width": 7
           }
-        });
+        }); */
         
         this.map.addSource('points', { type: 'geojson', data: geojson });
         /* this.map.addLayer({
@@ -202,98 +214,65 @@ export default {
         var layersName = [];
 
         geojson["features"].forEach(function(feature) {
-          var symbol = feature.properties['ligne'];
-          var layerID = 'poi-' + symbol;
-          layersName.push(layerID);
+          var arrayline = feature.properties['ligne'];
+          var layerID = 'poi-' + arrayline[0];
+          //console.log(arrayline);
 
           if (!me.map.getLayer(layerID)) {
+            //console.log(arrayline[0]);
+            layersName.push(layerID);
+
             me.map.addLayer({
-            'id': layerID,
-            'type': 'symbol',
-            'source': 'points',
-            'layout': {
-              'icon-image': 'subway-icon1',
-              "icon-size": 0.4,
-              "text-field": ["get", "title"],
-              "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-              "text-offset": [0, 0.6],
-              "text-anchor": "top",
-              'icon-allow-overlap': true
-            },
-            'filter': ['==', 'ligne', symbol]
-          });
-          
-          // Add checkbox and label elements for the layer.
-          var input = document.createElement('input');
-          input.type = 'checkbox';
-          input.id = layerID;
-          input.checked = true;
-          filterGroup.appendChild(input);
+              'id': layerID,
+              'type': 'symbol',
+              'source': 'points',
+              'layout': {
+                'icon-image': 'subway-icon1',
+                "icon-size": ["interpolate", ["linear"], ["zoom"], 10, 0.1, 12, 0.2, 13, 0.4],
+                "text-field": ["step", ["zoom"], "", 14,["get", "title"]],
+                "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                "text-offset": [0, 0.7],
+                "text-anchor": "top",
+                'icon-allow-overlap': true
+              },
+              'filter': [
+                  "any",
+                  ["==",'ligne0', arrayline[0]],
+                  ["==",'ligne1', arrayline[0]],
+                  ["==",'ligne2', arrayline[0]],
+                  ["==",'ligne3', arrayline[0]],
+                  ["==",'ligne4', arrayline[0]],
+                  ["==",'ligne5', arrayline[0]]
+              
+              ]
+            });
+            
+            // Add checkbox and label elements for the layer.
+            var input = document.createElement('input');
+            input.type = 'checkbox';
+            input.id = layerID;
+            input.checked = true;
+            filterGroup.appendChild(input);
 
-          var label = document.createElement('label');
-          label.setAttribute('for', layerID);
-          label.textContent = 'ligne ' + symbol;
-          filterGroup.appendChild(label);
+            var label = document.createElement('label');
+            label.setAttribute('for', layerID);
+            label.textContent = 'ligne ' + arrayline[0];
+            filterGroup.appendChild(label);
 
-          // When the checkbox changes, update the visibility of the layer.
-          input.addEventListener('change', function(e) {
-            me.map.setLayoutProperty(
-              layerID,
-              'visibility',
-              e.target.checked ? 'visible' : 'none'
-            );
-          });
-        }
+            // When the checkbox changes, update the visibility of the layer.
+            input.addEventListener('change', function(e) {
+              me.map.setLayoutProperty(
+                layerID,
+                'visibility',
+                e.target.checked ? 'visible' : 'none'
+              );
+            });
+          }
         });
 
+        //console.log(layersName);
         layersName.forEach(element => {
           me.addMarker(element, me, mapboxgl);
-        });
-/* 
-        var filterInput = document.getElementById('filter-input');
-        filterInput.addEventListener('keyup', async function(e) {
-          // If the input value matches a layerID set
-          // it's visibility to 'visible' or else hide it.
-          var value = e.target.value.toLowerCase();
-          let id = names.indexOf(value);
-          //console.log(names);
-          if(id > -1) {
-            console.log(id);
-            var mcoordinates = geojson.features[id].geometry.coordinates.slice();
-            var description = geojson.features[id].properties.title;
-  
-            var timeleft = await me.UpdateSubway(geojson.features[id].properties.title);
-            new mapboxgl.Popup()
-              .setLngLat(mcoordinates)
-              .setHTML(description + " prochain train dans : " + timeleft + "min")
-              .addTo(me.map);
-
-            me.map.jumpTo({ 'center': geojson.features[id].geometry.coordinates, 'zoom': 12 });
-            
-          }
-        }); */
-
-        var filterInput = document.getElementById('filter-input');
-        filterInput.addEventListener('keyup', async function(e) {
-          // If the input value matches a layerID set
-          // it's visibility to 'visible' or else hide it.
-          var value = e.target.value.toLowerCase();
-          let id = names.indexOf(value);
-          //console.log(names);
-          if(id > -1) {
-            console.log(id);
-            var mcoordinates = geojson.features[id].geometry.coordinates.slice();
-            var description = geojson.features[id].properties.title;
-  
-            var timeleft = await me.UpdateSubway(geojson.features[id].properties.title);
-            new mapboxgl.Popup()
-              .setLngLat(mcoordinates)
-              .setHTML(description + " prochain train dans : " + timeleft + "min")
-              .addTo(me.map);
-
-            me.map.jumpTo({ 'center': geojson.features[id].geometry.coordinates, 'zoom': 12 });
-            
-          }
         });
 
         var stationid = 10;
@@ -385,7 +364,8 @@ export default {
     },
 
     async JsonGet() {
-      let response = await fetch("http://localhost:5000/Maps/pointmap.geojson");
+      //let response = await fetch("http://localhost:5000/Maps/pointmap.geojson");
+      let response = await fetch("http://localhost:5000/StopArea/GetStopAreas");
       let json = await response.json();
       //console.log(json);
       
@@ -459,14 +439,14 @@ export default {
     }
 
     .filter-group {
-    font: 14px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     font-weight: 600;
     position: absolute;
     top: 120px;
     right: 10px;
     z-index: 1;
     border-radius: 3px;
-    width: 120px;
+    width: 100px;
     color: #fff;
     }
     
@@ -487,7 +467,7 @@ export default {
     background-color: #b0b0b0;
     display: block;
     cursor: pointer;
-    padding: 10px;
+    padding: 4px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.25);
     }
     

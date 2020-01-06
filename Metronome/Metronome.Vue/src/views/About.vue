@@ -33,9 +33,9 @@ export default {
   },
 
   mounted: async function() {
-
+    const config = require('../appsettings.json');
     var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
-    mapboxgl.accessToken = 'pk.eyJ1Ijoic3VwZXJ5YW5uODkiLCJhIjoiY2syNGgwaG1yMjM2NjNobXY0eTZyNDhtdiJ9.PapYOTQWtc2d0HP7VLCbDw';
+    mapboxgl.accessToken = config.token;
     this.mapboxgldata = mapboxgl;
     //pas le laisser ici
     this.map = new mapboxgl.Map({
@@ -60,8 +60,21 @@ export default {
 
         await navigator.geolocation.getCurrentPosition(this.success);
 
-        var geojson = await this.JsonGet();
+        var geojson = await this.JsonGet("http://localhost:5000/StopArea/GetStopAreas");
+        var orderstop = await this.JsonGet("http://localhost:5000/Maps/ListeStations.json");
+        //console.log(geojson);
 
+        let coordline1 = [];
+        var names = [];
+        var coord = [];
+
+        geojson["features"].forEach(element => {
+          coordline1.push(element["geometry"]["coordinates"]);
+          names.push(element["properties"]["title"]);
+          coord.push(element["geometry"]["coordinates"]);
+        });
+
+       
         geojson["features"].forEach(function(feature) {
           let ligne = feature.properties['ligne'];
           //if(ligne.length == 0) {console.log(feature.properties.title)};
@@ -76,13 +89,7 @@ export default {
         this.geojsondata = geojson; 
         //console.log(geojson);
 
-        let coordline1 = [];
-        var names = [];
-
-        geojson["features"].forEach(element => {
-          coordline1.push(element["geometry"]["coordinates"]);
-          names.push(element["properties"]["title"]);
-        });
+       
         this.stationsname = names;
         //console.log(coordline1);
         
@@ -331,8 +338,20 @@ export default {
       me.map.on('click', layername , async (e) => {
         var mcoordinates = e.features[0].geometry.coordinates.slice();
         var description = e.features[0].properties.title;
-
+        var lignes = e.features[0].properties.ligne;
+        lignes = JSON.parse(lignes);
+        
+        var texte = "";
+        
         var timeleft = await me.UpdateSubway(e.features[0].properties.title);
+
+        lignes.forEach(async nb => {
+          texte += '<img src="http://localhost:5000/Images/logometro/m'+nb+'genrvb.svg" height="23" width="23" display="block" margin="0 auto";> prochain dans <b>'+timeleft+'min</b><br>';
+        });
+        
+        //console.log((lignes[0]));
+        
+        
         //GET THE DATA FROM THE STOP|UPDATE|DISPLAY
         //EXPECTED AS id = e.features[0].properties.id
 
@@ -342,10 +361,10 @@ export default {
         while (Math.abs(e.lngLat.lng - mcoordinates[0]) > 180) {
           mcoordinates[0] += e.lngLat.lng > mcoordinates[0] ? 360 : -360;
         }
-        
+       
         new mapboxgl.Popup()
           .setLngLat(mcoordinates)
-          .setHTML(description + " prochain train dans : " + timeleft + "min")
+          .setHTML("<strong>"+description+"</strong><p>" + texte + "</p>")
           .addTo(me.map);
       });
       // Change the cursor to a ? when the mouse is over the subway stations.
@@ -363,9 +382,9 @@ export default {
       return(4);
     },
 
-    async JsonGet() {
+    async JsonGet(url) {
       //let response = await fetch("http://localhost:5000/Maps/pointmap.geojson");
-      let response = await fetch("http://localhost:5000/StopArea/GetStopAreas");
+      let response = await fetch(url);
       let json = await response.json();
       //console.log(json);
       
@@ -398,22 +417,30 @@ export default {
     }, 
 
     async searchsubmit(result) {
-          let id = this.stationsname.indexOf(result);
-          console.log(id);
-          if(id > -1) {
-            //console.log(id);
-            if(this.popupinfo !== null) this.popupinfo.remove(); 
-            var mcoordinates = this.geojsondata.features[id].geometry.coordinates.slice();
-            var description = this.geojsondata.features[id].properties.title;
-  
-            var timeleft = await this.UpdateSubway(this.geojsondata.features[id].properties.title);
-            this.popupinfo = new this.mapboxgldata.Popup()
-              .setLngLat(mcoordinates)
-              .setHTML(description + " prochain train dans : " + timeleft + "min")
-              .addTo(this.map);
+      let id = this.stationsname.indexOf(result);
+      //console.log(id);
+      if(id > -1) {
+        //console.log(id);
+        if(this.popupinfo !== null) this.popupinfo.remove(); 
+        var mcoordinates = this.geojsondata.features[id].geometry.coordinates.slice();
+        var description = this.geojsondata.features[id].properties.title;
+        var texte = "";
 
-            this.map.jumpTo({ 'center': this.geojsondata.features[id].geometry.coordinates, 'zoom': 12 });
-          }
+        let timeleft = await this.UpdateSubway(this.geojsondata.features[id].properties.title);
+        this.geojsondata.features[id].properties.ligne.forEach(async nb => {
+          texte += '<img src="http://localhost:5000/Images/logometro/m'+nb+'genrvb.svg" height="25" width="25" display="block" margin="0 auto";> prochain dans <b>'+timeleft+'min</b><br>';
+        });
+        
+        
+        //console.log(texte);
+
+        this.popupinfo = new this.mapboxgldata.Popup()
+          .setLngLat(mcoordinates)
+          .setHTML("<strong>"+description+"</strong><p>" + texte + "</p>")
+          .addTo(this.map);
+
+        this.map.jumpTo({ 'center': this.geojsondata.features[id].geometry.coordinates, 'zoom': 12 });
+      }
     }
 
   }
@@ -507,10 +534,14 @@ export default {
     border-radius: 3px;
     }
     .searchbar {
-      position: absolute;
-      top: 50px;
-      right: 10px;
-      z-index: 1;
-      width: 220px;
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    z-index: 1;
+    width: 220px;
     }
+    .mapboxgl-popup-content {
+    font: 15px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
+    
 </style>

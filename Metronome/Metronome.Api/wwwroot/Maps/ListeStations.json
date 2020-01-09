@@ -253,10 +253,10 @@
         "Bolivar",
         "Buttes Chaumont",
         "Botzaris",
-        "Place des Fêtes%",
-        "Pré Saint-Gervais%",
-        "Danube%",
-        "Botzaris%"
+        "Place des Fêtes",
+        "Pré Saint-Gervais",
+        "Danube",
+        "Botzaris"
       ]
 
     },
@@ -279,7 +279,7 @@
         "Grands Boulevards (Rue Montmartre)",
         "Bonne Nouvelle",
         "Strasbourg Saint-Denis",
-        "République ",
+        "République",
         "Filles du Calvaire",
         "Saint-Sébastien Froissart",
         "Chemin Vert",
@@ -350,10 +350,10 @@
       "Stations": [
         "Boulogne / Pont de Saint-Cloud",
         "Boulogne - Jean Jaurès",
-        "Michel Ange - Molitor%",
-        "Chardon / Lagache%",
-        "Mirabeau%",
-        "Javel / André Citroën%",
+        "Michel Ange - Molitor",
+        "Chardon / Lagache",
+        "Mirabeau",
+        "Javel / André Citroën",
         "Charles Michels",
         "Avenue Émile Zola",
         "La Motte Picquet / Grenelle",
@@ -374,10 +374,10 @@
       "id": "10",
       "Stations": [
         "Javel / André Citroën",
-        "Église d'Auteuil%",
-        "Michel Ange - Auteuil%",
-        "Porte d'Auteuil%",
-        "Boulogne - Jean Jaurès%"
+        "Église d'Auteuil",
+        "Michel Ange - Auteuil",
+        "Porte d'Auteuil",
+        "Boulogne - Jean Jaurès"
       ]
     },
     {

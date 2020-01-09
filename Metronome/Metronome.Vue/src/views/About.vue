@@ -2,6 +2,7 @@
   <div class="about">
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
     <div id='map'></div>
+    <nav id="clear-filter" class="clear-filter"></nav>
     <nav id="filter-group" class="filter-group"></nav>
      <autocomplete
       class='searchbar'
@@ -62,16 +63,72 @@ export default {
 
         var geojson = await this.JsonGet("http://localhost:5000/StopArea/GetStopAreas");
         var orderstop = await this.JsonGet("http://localhost:5000/Maps/ListeStations.json");
-        //console.log(geojson);
+        //console.log(orderstop);
 
         let coordline1 = [];
         var names = [];
         var coord = [];
+        let stopscoord = {};
+        let colors = {};
+
+        colors["1"] = "#ffcd00";
+        colors["2"] = "#003ca6";
+        colors["3"] = "#837902";
+        colors["3B"] = "#6ec4e8";
+        colors["4"] = "#be418d";
+        colors["5"] = "#ff7e2e";
+        colors["6"] = "#6eca97";
+        colors["7"] = "#fa9aba";
+        colors["7B"] = "#6eca97";
+        colors["8"] = "#e19bdf";
+        colors["9"] = "#b6bd00";
+        colors["10"] = "#c9910d";
+        colors["11"] = "#704b1c";
+        colors["12"] = "#007852";
+        colors["13"] = "#6ec4e8";
+        colors["14"] = "#62259d";
+        colors["15"] = "#a81032";
 
         geojson["features"].forEach(element => {
           coordline1.push(element["geometry"]["coordinates"]);
           names.push(element["properties"]["title"]);
           coord.push(element["geometry"]["coordinates"]);
+          stopscoord[element["properties"]["title"]]= element["geometry"]["coordinates"];
+        });
+
+        let t = orderstop.Ligne.map((l, i) => {
+          return {
+            id: i,
+            number: l.id,
+            stops: l.Stations.map( s => stopscoord[s])
+          };
+        });
+
+        t.forEach(element => {
+          
+          this.map.addLayer({
+            "id": element.id.toString(),
+            "type": "line",
+            "source": {
+              "type": "geojson",
+              "data": {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                  "type": "LineString",
+                  "coordinates": element.stops
+                  }
+                }
+              },
+              "layout": {
+              "line-join": "round",
+              "line-cap": "round"
+              },
+            "paint": {
+            "line-color": colors[element.number],
+            "line-width": 7
+            }
+          });
         });
 
        
@@ -102,31 +159,7 @@ export default {
           fitBoundsOptions: {maxZoom:13}
           })
         );
-        
-        /* this.map.addLayer({
-          "id": "route",
-          "type": "line",
-          "source": {
-            "type": "geojson",
-            "data": {
-              "type": "Feature",
-              "properties": {},
-              "geometry": {
-                "type": "LineString",
-                "coordinates": coordline1
-                }
-              }
-            },
-            "layout": {
-            "line-join": "round",
-            "line-cap": "round"
-            },
-          "paint": {
-          "line-color": "#FFCD00",
-          "line-width": 7
-          }
-        }); */
-        
+    
         this.map.addSource('points', { type: 'geojson', data: geojson });
         /* this.map.addLayer({
           "id": "points",
@@ -273,9 +306,50 @@ export default {
                 'visibility',
                 e.target.checked ? 'visible' : 'none'
               );
+              t.forEach(element => {
+                if(arrayline[0] == element.number) {
+                  me.map.setLayoutProperty(
+                    element.id,
+                    'visibility',
+                    e.target.checked ? 'visible' : 'none'
+                  );
+                }
+              });
             });
           }
         });
+
+        let clearfilter = document.getElementById('clear-filter');
+        let input = document.createElement('input');
+        input.type = 'checkbox';
+        input.id = "clear";
+        input.checked = true;
+        clearfilter.appendChild(input);
+        let label = document.createElement('label');
+        label.setAttribute('for', "clear");
+        label.id = "cleartext";
+        label.textContent = 'Tout ❌';
+        clearfilter.appendChild(label);
+
+        input.addEventListener('change', function(e) {
+          document.getElementById("cleartext").innerHTML = e.target.checked ? 'Tout ❌' : 'Tout ✔️';
+          layersName.forEach(element => {
+            document.getElementById(element).checked = e.target.checked ? true : false
+            me.map.setLayoutProperty(
+              element,
+              'visibility',
+              e.target.checked ? 'visible' : 'none'
+            );
+          });
+          t.forEach(element2 => {
+            me.map.setLayoutProperty(
+              element2.id,
+              'visibility',
+              e.target.checked ? 'visible' : 'none'
+            );
+          });
+        });
+        console.log(layersName);
 
         //console.log(layersName);
         layersName.forEach(element => {
@@ -324,7 +398,7 @@ export default {
             }); 
 
         }, refreshtimer);
-        
+
 
       }
     });
@@ -380,6 +454,23 @@ export default {
 
     async UpdateSubway() {
       return(4);
+    },
+
+    CheckboxDisplayEvent(e,t) {
+      me.map.setLayoutProperty(
+        layerID,
+        'visibility',
+        e.target.checked ? 'visible' : 'none'
+      );
+      t.forEach(element => {
+        if(arrayline[0] == element.number) {
+          me.map.setLayoutProperty(
+            element.id,
+            'visibility',
+            e.target.checked ? 'visible' : 'none'
+          );
+        }
+      });
     },
 
     async JsonGet(url) {
@@ -439,7 +530,7 @@ export default {
           .setHTML("<strong>"+description+"</strong><p>" + texte + "</p>")
           .addTo(this.map);
 
-        this.map.jumpTo({ 'center': this.geojsondata.features[id].geometry.coordinates, 'zoom': 12 });
+        this.map.jumpTo({ 'center': this.geojsondata.features[id].geometry.coordinates, 'zoom': 14 });
       }
     }
 
@@ -469,6 +560,18 @@ export default {
     font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     font-weight: 600;
     position: absolute;
+    top: 150px;
+    right: 10px;
+    z-index: 1;
+    border-radius: 3px;
+    width: 100px;
+    color: #fff;
+    }
+
+    .clear-filter {
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    position: absolute;
     top: 120px;
     right: 10px;
     z-index: 1;
@@ -489,13 +592,25 @@ export default {
     .filter-group input[type='checkbox'] {
     display: none;
     }
-    
+    .clear-filter input[type='checkbox'] {
+    display: none;
+    }
+
     .filter-group input[type='checkbox'] + label {
     background-color: #b0b0b0;
     display: block;
     cursor: pointer;
     padding: 4px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    }
+
+    .clear-filter input[type='checkbox'] + label {
+    background-color: #d3d3d3;
+    display: block;
+    cursor: pointer;
+    padding: 4px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
     }
     
     .filter-group input[type='checkbox'] + label {

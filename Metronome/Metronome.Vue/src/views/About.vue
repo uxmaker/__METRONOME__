@@ -16,7 +16,7 @@
 </template>
 
 <script>
-
+import { getTimeStopAsync } from '../api/stationsApi'
 
 export default {
   data() {
@@ -65,9 +65,7 @@ export default {
         var orderstop = await this.JsonGet("http://localhost:5000/Maps/ListeStations.json");
         //console.log(orderstop);
 
-        let coordline1 = [];
-        var names = [];
-        var coord = [];
+        var names = [];        
         let stopscoord = {};
         let colors = {};
 
@@ -90,12 +88,11 @@ export default {
         colors["15"] = "#a81032";
 
         geojson["features"].forEach(element => {
-          coordline1.push(element["geometry"]["coordinates"]);
           names.push(element["properties"]["title"]);
-          coord.push(element["geometry"]["coordinates"]);
           stopscoord[element["properties"]["title"]]= element["geometry"]["coordinates"];
         });
-
+        
+        //.map((element, index) => {})
         let t = orderstop.Ligne.map((l, i) => {
           return {
             id: i,
@@ -148,7 +145,6 @@ export default {
 
        
         this.stationsname = names;
-        //console.log(coordline1);
         
         this.map.addControl(
           new mapboxgl.GeolocateControl({
@@ -161,26 +157,6 @@ export default {
         );
     
         this.map.addSource('points', { type: 'geojson', data: geojson });
-        /* this.map.addLayer({
-          "id": "points",
-          "type": "symbol",
-          "source": "points",
-          "layout": {
-          // get the icon name from the source's "icon" property
-          // concatenate the name to get an icon from the style's sprite sheet
-          "icon-image": "subway-icon1",
-          "icon-size": 0.4,
-          // get the title name from the source's "title" property
-          "text-field": ["get", "title"],
-          "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-          "text-offset": [0, 0.6],
-          "text-anchor": "top"
-          }
-        }); */
-
-        //this.map.jumpTo({ 'center': [this.crd.longitude, this.crd.latitude], 'zoom': 12 });
-
-        //var testcoord =  geojson.features[0].geometry.coordinates;
         var origin = geojson.features[0].geometry.coordinates;
 
         this.map.addSource('test', {
@@ -296,7 +272,8 @@ export default {
 
             var label = document.createElement('label');
             label.setAttribute('for', layerID);
-            label.textContent = 'ligne ' + arrayline[0];
+            //label.innerHTML = `Metro <img src="@/assets/logometro/m${arrayline[0]}genrvb.svg" height="23" width="23";>`;
+            label.innerHTML = 'Metro <img src="http://localhost:5000/Images/logometro/m'+arrayline[0]+'genrvb.svg" height="23" width="23";>';
             filterGroup.appendChild(label);
 
             // When the checkbox changes, update the visibility of the layer.
@@ -349,8 +326,6 @@ export default {
             );
           });
         });
-        console.log(layersName);
-
         //console.log(layersName);
         layersName.forEach(element => {
           me.addMarker(element, me, mapboxgl);
@@ -408,38 +383,47 @@ export default {
 
   methods: {
 
+    async UpdateData(lignes, popup, arret, description, me) {
+      let texte = "";
+      let timeleft = await me.UpdateSubway(1);
+      lignes.forEach(nb => {
+        texte += '<img src="http://localhost:5000/Images/logometro/m'+nb+'genrvb.svg" height="25" width="25" display="block" margin="0 auto";> prochain dans <b>'+timeleft['line'+nb]+'min</b><br>';
+      });
+      
+      popup.setHTML("<strong>"+description+"</strong><p>" + texte + "</p>");
+
+      
+      let interval = setInterval(async () => {
+        if (!popup.isOpen()) clearInterval(interval);
+        let texte = "";
+        let timeleft = await me.UpdateSubway(1);
+        console.log(timeleft);
+        lignes.forEach(nb => {
+          texte += '<img src="http://localhost:5000/Images/logometro/m'+nb+'genrvb.svg" height="25" width="25" display="block" margin="0 auto";> prochain dans <b>'+timeleft['line'+nb]+'min</b><br>';
+        });
+        
+        popup.setHTML("<strong>"+description+"</strong><p>" + texte + "</p>");
+
+        
+      },4000, lignes, popup, arret, description, me );
+
+    },
+
     async addMarker(layername, me, mapboxgl) {
       me.map.on('click', layername , async (e) => {
+        if(me.popupinfo !== null) this.popupinfo.remove(); 
         var mcoordinates = e.features[0].geometry.coordinates.slice();
         var description = e.features[0].properties.title;
         var lignes = e.features[0].properties.ligne;
         lignes = JSON.parse(lignes);
+
+        me.popupinfo = new mapboxgl.Popup()
+          .setLngLat(mcoordinates)
+          .addTo(me.map);
         
         var texte = "";
-        
-        var timeleft = await me.UpdateSubway(e.features[0].properties.title);
-
-        lignes.forEach(async nb => {
-          texte += '<img src="http://localhost:5000/Images/logometro/m'+nb+'genrvb.svg" height="23" width="23" display="block" margin="0 auto";> prochain dans <b>'+timeleft+'min</b><br>';
-        });
-        
-        //console.log((lignes[0]));
-        
-        
-        //GET THE DATA FROM THE STOP|UPDATE|DISPLAY
-        //EXPECTED AS id = e.features[0].properties.id
-
-        // Ensure that if the map is zoomed out such that multiple
-        // copies of the feature are visible, the popup appears
-        // over the copy being pointed to.
-        while (Math.abs(e.lngLat.lng - mcoordinates[0]) > 180) {
-          mcoordinates[0] += e.lngLat.lng > mcoordinates[0] ? 360 : -360;
-        }
+        me.UpdateData(lignes, me.popupinfo, e.features[0].properties.title, description, me);
        
-        new mapboxgl.Popup()
-          .setLngLat(mcoordinates)
-          .setHTML("<strong>"+description+"</strong><p>" + texte + "</p>")
-          .addTo(me.map);
       });
       // Change the cursor to a ? when the mouse is over the subway stations.
       me.map.on('mouseenter', layername , function() {
@@ -453,7 +437,8 @@ export default {
     },
 
     async UpdateSubway() {
-      return(4);
+      return (await getTimeStopAsync(1));
+      
     },
 
     CheckboxDisplayEvent(e,t) {
@@ -474,7 +459,6 @@ export default {
     },
 
     async JsonGet(url) {
-      //let response = await fetch("http://localhost:5000/Maps/pointmap.geojson");
       let response = await fetch(url);
       let json = await response.json();
       //console.log(json);
@@ -515,28 +499,15 @@ export default {
         if(this.popupinfo !== null) this.popupinfo.remove(); 
         var mcoordinates = this.geojsondata.features[id].geometry.coordinates.slice();
         var description = this.geojsondata.features[id].properties.title;
-        var texte = "";
-
-        let timeleft = await this.UpdateSubway(this.geojsondata.features[id].properties.title);
-        this.geojsondata.features[id].properties.ligne.forEach(async nb => {
-          texte += '<img src="http://localhost:5000/Images/logometro/m'+nb+'genrvb.svg" height="25" width="25" display="block" margin="0 auto";> prochain dans <b>'+timeleft+'min</b><br>';
-        });
-        
-        
-        //console.log(texte);
-
         this.popupinfo = new this.mapboxgldata.Popup()
           .setLngLat(mcoordinates)
-          .setHTML("<strong>"+description+"</strong><p>" + texte + "</p>")
           .addTo(this.map);
 
         this.map.jumpTo({ 'center': this.geojsondata.features[id].geometry.coordinates, 'zoom': 14 });
+        this.UpdateData(this.geojsondata.features[id].properties.ligne, this.popupinfo, this.geojsondata.features[id].properties.title, description, this);
       }
     }
-
   }
-
-
 }
 </script>
 

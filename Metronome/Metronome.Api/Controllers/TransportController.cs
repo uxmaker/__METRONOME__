@@ -12,7 +12,9 @@ namespace Metronome.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTrains(int stopAreaId)
         {
-            throw new NotImplementedException();
+            var result = new { line6 =  new Random().Next(21), line8 = new Random().Next(21) };
+            //result = Json(result);
+            return Ok(result);
         }
 
     }

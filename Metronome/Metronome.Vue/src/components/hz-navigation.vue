@@ -19,6 +19,15 @@
                     <button v-on:click="toggleMenu" class="burger-icon"><i class="icon"></i></button>
                     <router-link to="/" class="title">metronome</router-link>
                 </div>
+                <div v-for='link in alwaysLinks' v-bind:class="link[3]">
+                    <router-link v-bind:to="link[1]"><img v-if="link[2] != null" v-bind:src="link[2]" class="icon"><div class="content">{{ link[0] }}</div></router-link>
+                </div>
+                <div v-for='link in unAuthLinks' v-bind:class="link[3]">
+                    <router-link v-bind:to="link[1]">{{ link[0] }}</router-link>
+                </div>
+                <div v-for='link in authLinks' v-bind:class="link[3]">
+                    <router-link v-bind:to="link[1]">{{ link[0] }}</router-link>
+                </div>
 
             </div>
             <button v-on:click="toggleMenu" id="ve-navigation-right"></button>
@@ -213,7 +222,7 @@
     {
         display:grid;
         grid-template-columns:auto 1fr;
-        grid-template-rows: 1;
+        grid-template-rows: 1fr;
         position:fixed;
         left: 0px;
         top: 0px;
@@ -304,7 +313,39 @@
         text-decoration: none;
         transition:300ms;
         margin-left:2px;
-        border-radius:0 3px 3px 0;
+    }
+
+    /* VERTICAL NAVIGATION DEFAULT LINKS */
+
+    #ve-navigation-left .default a
+    {
+        display:grid;
+        grid-template-columns: 40px 1fr;
+        padding:8px 16px;
+        text-decoration: none;
+        transition:300ms;
+    }
+
+    #ve-navigation-left .default a:hover
+    {
+        background-color:#00000020;
+    }
+
+    #ve-navigation-left .default .icon
+    {
+        width:24px;
+        padding:8px;
+    }
+
+    #ve-navigation-left .default .content{
+        color:black;
+        font-size:15px;
+        line-height:24px;
+        letter-spacing: 1px;
+        padding: 8px 8px;
+        text-decoration: none;
+        transition:300ms;
+        margin-left:2px;
     }
 
 </style>

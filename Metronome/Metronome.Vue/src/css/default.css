@@ -1,0 +1,22 @@
+*
+{
+    margin:0px;
+    padding:0px;
+    font-weight: normal;
+    font-family:sans-serif;
+}
+
+button
+{
+    border:0px;
+}
+
+#app
+{
+    width:100%;
+}
+
+body 
+{
+    background-color:#00060e;
+}

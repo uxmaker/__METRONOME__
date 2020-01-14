@@ -5,8 +5,7 @@ import {
     deleteAsync
 } from "../helpers/apiHelper";
 
-const endpoint = "http://localhost:5000" + "/Transport";
-console.log(endpoint);
+const endpoint = process.env.VUE_APP_BACKEND + "/Transport";
 
 export async function getTimeStopAsync(stopId) {
     return await getAsync(`${endpoint}/GetTrains/${stopId}`);

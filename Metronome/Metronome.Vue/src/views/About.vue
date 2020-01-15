@@ -4,6 +4,9 @@
     <div id='map'></div>
     <nav id="clear-filter" class="clear-filter"></nav>
     <nav id="filter-group" class="filter-group"></nav>
+    <div style="z-index: 1; position: absolute; top: 5px; right: 47px">
+      <img src="/panel.png" v-on:click='alertevent' class="alertbutton" />
+    </div>
      <autocomplete
       class='searchbar'
       :search="search"
@@ -57,9 +60,6 @@ export default {
         await this.newImage('http://localhost:5000/Images/logo.png', 'subway-icon1', me);
         await this.newImage('http://localhost:5000/Images/marker-40.png', 'user-icon', me);
         await this.newImage('http://localhost:5000/Images/train.png', 'train-icon', me);
-        
-
-        await navigator.geolocation.getCurrentPosition(this.success);
 
         let geojson = await this.JsonGet("http://localhost:5000/StopArea/GetStopAreas");
         let orderstop = await this.JsonGet("http://localhost:5000/Maps/ListeStations.json");
@@ -360,6 +360,11 @@ export default {
         }, refreshtimer);
 
  */
+
+
+
+   
+        
       }
     });
   },
@@ -367,6 +372,10 @@ export default {
 
 
   methods: {
+
+    alertevent: function (event) {
+      navigator.geolocation.getCurrentPosition(this.success);
+    },
 
     async UpdateData(lignes, popup, arret, description, me) {
       let texte = "";
@@ -451,10 +460,11 @@ export default {
 
     async success(pos) {
       this.crd = pos.coords;
-      /* console.log('Your current position is:');
+      console.log('Your current position is:');
       console.log(`Latitude : ${ this.crd.latitude}`);
       console.log(`Longitude: ${this.crd.longitude}`);
-      console.log(`More or less ${this.crd.accuracy} meters.`); */
+      console.log(`More or less ${this.crd.accuracy} meters.`); 
+      console.log(`Le code pour l'event `);
     },
 
     async newImage(loc, name, me) {
@@ -510,6 +520,11 @@ export default {
     max-width: 200px;
     }
 
+    .alertbutton {
+      z-index: 1;
+      width: 40px;
+      height: 40px;
+    }
     .filter-group {
     font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     font-weight: 600;

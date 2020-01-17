@@ -1,18 +1,31 @@
 <template>
   <div class="home">
+    <navigation v-bind:isAuth="true" v-bind:alwaysLinks="links.anonyme" v-bind:authLinks="links.auth"></navigation>
     <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import navigation from '@/components/navigation.vue'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    navigation
+  },
+  data()
+  {
+    return {
+      links : {
+        anonyme : [ 
+          [ "Accueil", "/", require("../assets/template/essential/png/home-2.png"), "default" ],
+          [ "Info Traffic", "/", null, "default" ]
+        ],
+        auth : [
+          [ "Plan", "/about", require("../assets/template/essential/png/map-2.png"), "default" ]
+        ]
+      }
+    }
   }
 }
 </script>

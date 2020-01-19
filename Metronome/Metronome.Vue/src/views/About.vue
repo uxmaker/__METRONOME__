@@ -379,7 +379,8 @@ export default {
 
     async UpdateData(lignes, popup, arret, description, me) {
       let texte = "";
-      let timeleft = await me.UpdateSubway(1);
+      let timeleft = await me.UpdateSubway(arret);
+      console.log(timeleft);
       lignes.forEach(nb => {
         texte += '<img src="/logometro/m'+nb+'genrvb.svg" height="25" width="25" display="block" margin="0 auto";> prochain dans <b>'+timeleft['line'+nb]+'min</b><br>';
       });
@@ -390,7 +391,7 @@ export default {
       let interval = setInterval(async () => {
         if (!popup.isOpen()) clearInterval(interval);
         let texte = "";
-        let timeleft = await me.UpdateSubway(1);
+        let timeleft = await me.UpdateSubway(arret);
         //console.log(timeleft);
         lignes.forEach(nb => {
           texte += '<img src="/logometro/m'+nb+'genrvb.svg" height="25" width="25" display="block" margin="0 auto";> prochain dans <b>'+timeleft['line'+nb]+'min</b><br>';
@@ -429,9 +430,8 @@ export default {
 
     },
 
-    async UpdateSubway() {
-      return (await getTimeStopAsync(1));
-      
+    async UpdateSubway(arret) {
+      return (await getTimeStopAsync(arret));
     },
 
     CheckboxDisplayEvent(e,t) {

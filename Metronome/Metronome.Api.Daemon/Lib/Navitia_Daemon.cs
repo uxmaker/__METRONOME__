@@ -81,7 +81,7 @@ namespace Metronome.Api.Daemon.Lib
 
                 }
             }
-            //await InsertJointure();
+            await InsertJointure();
 
         }
 

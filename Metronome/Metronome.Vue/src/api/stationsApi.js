@@ -7,6 +7,6 @@ import {
 
 const endpoint = process.env.VUE_APP_BACKEND + "/Transport";
 
-export async function getTimeStopAsync(stopId) {
-    return await getAsync(`${endpoint}/GetTrains/${stopId}`);
+export async function getTimeStopAsync(stopName) {
+    return await getAsync(`${endpoint}/GetTrains/${stopName}`);
 }

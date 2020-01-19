@@ -1,28 +1,28 @@
 <template>
   <div class="home">
-    <navigation v-bind:isAuth="true" v-bind:alwaysLinks="links.anonyme" v-bind:authLinks="links.auth"></navigation>
+    <hzNav v-bind:isAuth="false" v-bind:alwaysLinks="links.anonyme"></hzNav>
     <img alt="Vue logo" src="../assets/logo.png">
   </div>
 </template>
 
 <script>
-import navigation from '@/components/navigation.vue'
+import hzNav from '@/components/hz-navigation.vue'
 
 export default {
   name: 'home',
   components: {
-    navigation
+    hzNav
   },
   data()
   {
     return {
       links : {
+        auth : {},
+        unauth : {},
         anonyme : [ 
           [ "Accueil", "/", require("../assets/template/essential/png/home-2.png"), "default" ],
-          [ "Info Traffic", "/", null, "default" ]
-        ],
-        auth : [
-          [ "Plan", "/about", require("../assets/template/essential/png/map-2.png"), "default" ]
+          [ "Plan", "/about", require("../assets/template/essential/png/map-2.png"), "default" ],
+          [ "Alerts", "/", null, "default" ],
         ]
       }
     }

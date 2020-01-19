@@ -1,3 +1,41 @@
+<template>
+    <div id="navigation">
+        <div id="hz-navigation">
+            <div id="hz-navigation-left">
+                <button v-on:click="toggleMenu" class="burger-icon"><i class="icon"></i></button>
+                <router-link to="/" class="title">metronome</router-link>
+            </div>
+            <div id="hz-navigation-right" class="navigation-signs">
+                <div></div>
+                <button class="signin aths"><div class="before"></div><div class="content">se connecter</div><div class="after"></div></button>
+                <button class="signup aths"><div class="before"></div><div class="content">s'enregistrer</div><div class="after"></div></button>
+                <router-link to="/" class="profile mbms"><i class="icon"></i><div class="content">PROFILE</div></router-link>
+                <router-link to="/about" class="map mbms"><i class="icon"></i><div class="content">LA CARTE</div></router-link>
+            </div>
+        </div>
+        <div id="ve-navigation" class="">
+            <div id="ve-navigation-left" class="ve-navigation-left">
+                <div id="ve-navigation-left-header">
+                    <button v-on:click="toggleMenu" class="burger-icon"><i class="icon"></i></button>
+                    <router-link to="/" class="title">metronome</router-link>
+                </div>
+                <div v-for='link in alwaysLinks' v-bind:class="link[3]">
+                    <router-link v-bind:to="link[1]"><img v-if="link[2] != null" v-bind:src="link[2]" class="icon"><div class="content">{{ link[0] }}</div></router-link>
+                </div>
+                <div v-for='link in unAuthLinks' v-bind:class="link[3]">
+                    <router-link v-bind:to="link[1]">{{ link[0] }}</router-link>
+                </div>
+                <div v-for='link in authLinks' v-bind:class="link[3]">
+                    <router-link v-bind:to="link[1]">{{ link[0] }}</router-link>
+                </div>
+
+            </div>
+            <button v-on:click="toggleMenu" id="ve-navigation-right"></button>
+        </div>
+    </div>
+</template>
+
+<style scoped>
 
     /* NAVIGATION */
 
@@ -47,6 +85,7 @@
     #hz-navigation-left .title
     {
         color:black;
+        font-family:sans-serif;
         text-transform: uppercase;
         font-size:15px;
         line-height:24px;
@@ -170,6 +209,13 @@
         padding-right:8px;
     }
 
+    /* HORIZONTAL NAVIGATION RESPONSIVE */
+
+    @media screen and (max-width: 720px)
+    {
+        #navigation #hz-navigation-right button { display:none; }
+    }
+    
     /* VERTICAL NAVIGATION */
 
     #ve-navigation
@@ -204,7 +250,6 @@
     {
         width:300px;
         margin-left:-300px;
-        max-width:100%;
     }
 
     #ve-navigation .isActive
@@ -215,6 +260,7 @@
     #ve-navigation-right
     {
         animation: none;
+        transition: 300ms;
         background-color:#00000000;
     }
 
@@ -255,9 +301,10 @@
         background-size:cover;
     }
 
-    #ve-navigation-left-header .title
+    #ve-navigation-left-header  .title
     {
         color:black;
+        font-family:sans-serif;
         text-transform: uppercase;
         font-size:15px;
         line-height:24px;
@@ -290,8 +337,7 @@
         padding:8px;
     }
 
-    #ve-navigation-left .default .content
-    {
+    #ve-navigation-left .default .content{
         color:black;
         font-size:15px;
         line-height:24px;
@@ -300,50 +346,78 @@
         text-decoration: none;
         transition:300ms;
         margin-left:2px;
-        display:block;
     }
 
-    .signs-responsive
+</style>
+
+<script>
+import { timeout } from 'q';
+export default {
+    name: 'horizontal-navigation',
+    props: {
+        isAuth : {
+            type : Boolean,
+            required : true
+        },
+        authLinks : {
+            type : Array,
+            required : false
+        },
+        unAuthLinks : {
+            type : Array,
+            required : false
+        },
+        alwaysLinks : {
+            type : Array,
+            required : false
+        }
+    },
+    data(){
+        return {
+            isActive : false
+        }
+    },
+    methods :{
+        toggleMenu(){
+            let veNav = document.getElementById("ve-navigation");
+            let veNavLeft = document.getElementById("ve-navigation-left");
+            let veNavRight = document.getElementById("ve-navigation-right");
+
+            this.isActive = (this.isActive ? false : true);
+
+            if(this.isActive)
+            {
+                veNav.style.display = "grid";
+                setTimeout(() => { veNavLeft.classList.add("isActive"); veNavRight.classList.add("ActiveRightToo"); }, 15, veNavLeft, veNavRight)
+            }
+            else
+            {
+                veNavLeft.classList.remove("isActive");
+                veNavRight.classList.remove("ActiveRightToo");
+                setTimeout(() => { veNav.style.display = "none" }, 315, veNav)
+            }
+        }
+    },
+    updated()
     {
-        display:none;
-    }
-
-    .signs-responsive button
+    },
+    mounted()
     {
-        color:black;
-        border: none;
-        font-size:11px;
-        line-height:40px;
-        padding:0 8px;
-        text-transform: uppercase;
-        text-align: center;
-        border-radius:3px;
-        transition:300ms;
+        let authelements = document.getElementsByClassName("aths");
+        let memberelements = document.getElementsByClassName("mbms");
+        document.getElementById("ve-navigation").style.display = "none";
+        if(this.isAuth)
+        {
+            authelements.forEach(element => {
+                element.style.display = "none";
+            });
+        }
+        else
+        {
+            memberelements.forEach(element => {
+                element.style.display = "none";
+            });
+        }
     }
-
-    .signs-responsive button:hover
-    {
-        opacity:0.75;
-    }
-
-    .signs-responsive .signin
-    {
-        color: #FFF;
-        background-color:#007bff;
-    }
-
-    .signs-responsive .signup
-    {
-        color: #FFF;
-        background-color: #28a745;
-    }
-
-    /* RESPONSIVE */
-
-    @media screen and (max-width: 720px)
-    {
-        #navigation #hz-navigation-right { display:none; }
-
-        .signs-responsive { display:grid; padding:8px; grid-gap:8px; }
-    }
-    
+}
+</script>

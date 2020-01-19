@@ -13,7 +13,7 @@ namespace Metronome.Api.DAL.Navitia
 
         public LineGateway(string connectionString) : base(connectionString) { }
 
-        public async Task<List<LineData>> GetAll()
+        public async Task<IEnumerable<LineData>> GetAll()
         {
             var result = new List<LineData>();
 
@@ -41,7 +41,13 @@ namespace Metronome.Api.DAL.Navitia
 
             return result;
         }
-
+        public async Task<string> GetCode(int id)
+        {
+            using (var c = GetSqlConnection())
+            {
+                return await c.QueryFirstAsync<string>("select code from MTN.Line where Id =@Id", new { Id = id });
+            }
+        }
         public async Task<LineData> FindById(int id)
         {
             using (var c = GetSqlConnection())

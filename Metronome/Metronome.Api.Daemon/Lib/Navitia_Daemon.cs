@@ -7,6 +7,8 @@ using System.Net;
 using Newtonsoft.Json;
 using Metronome.Api.DAL.Navitia;
 using Metronome.Api.DAL;
+using Dapper;
+using System.Linq;
 
 namespace Metronome.Api.Daemon.Lib
 {
@@ -16,25 +18,30 @@ namespace Metronome.Api.Daemon.Lib
 
     internal class Ligne { public string id { get; set; } public List<string> Stations { get; set; } }
     internal class RootObject { public List<Ligne> Ligne { get; set; } }
+    internal class DisruptionList { public List<DisruptionData> Disruptions { get; set; } }
 
-    internal class ListHorraires { public List<HorrairesData> Horraires { get; set; } }
+    internal class ListHorraires { public List<HorrairesData> Departures { get; set; } }
     public class Navitia_Daemon : Daemon
     {
         readonly DaemonOptions _options;
         readonly LineGateway _lineGateway;
         readonly StopAreaGateway _stopAreaGateway;
         readonly JointureGateway _jointureGateway;
+        readonly DisruptionGateway _disruptionGateway;
+        readonly HorrairesGateway _horrairesGateway;
 
         // -- PUBLIC METHODS
 
-        public Navitia_Daemon(DaemonOptions options, LineGateway lineGateway, StopAreaGateway stopAreaGateway, JointureGateway jointureGateway)
-            :base(524160000)
+        public Navitia_Daemon(DaemonOptions options, LineGateway lineGateway, StopAreaGateway stopAreaGateway, JointureGateway jointureGateway, DisruptionGateway disruptionGateway, HorrairesGateway horrairesGateway)
+           : base(100000)
         {
             _options = options;
             _lineGateway = lineGateway;
             _stopAreaGateway = stopAreaGateway;
             _jointureGateway = jointureGateway;
-            
+            _disruptionGateway = disruptionGateway;
+            _horrairesGateway = horrairesGateway;
+
         }
 
         // -- OVERRIDE METHODS
@@ -45,8 +52,12 @@ namespace Metronome.Api.Daemon.Lib
             
         }
 
-        public async override Task Run() { await Task.Delay(100); }
-        
+        public async override Task Run()
+        {
+            await GetInfoTrafic();
+
+        }
+
         // -- PRIVATE METHODS
 
         private async Task GetAndInsertLines()
@@ -70,7 +81,7 @@ namespace Metronome.Api.Daemon.Lib
 
                 }
             }
-            await InsertJointure();
+            //await InsertJointure();
 
         }
 
@@ -114,6 +125,58 @@ namespace Metronome.Api.Daemon.Lib
                         Console.WriteLine(li.id + "   " + li.Stations[i]);
                         await _jointureGateway.Create(li.id, li.Stations[i], li.Stations[i + 1]);
                         await _jointureGateway.Create(li.id, li.Stations[i + 1], li.Stations[i]);
+                    }
+                }
+            }
+        }
+        public async Task GetInfoTrafic()
+        {
+            WebRequest wR = WebRequest.Create(_options.API_DisruptionUrl());
+            wR = ConfigureRequest(wR);
+
+            using (var webRequestResponse = wR.GetResponse())
+            {
+                using (var streamResponse = new StreamReader(webRequestResponse.GetResponseStream()))
+                {
+                    var disruptionList = JsonConvert.DeserializeObject<DisruptionList>(streamResponse.ReadToEnd().ToString());
+                    foreach (var dis in disruptionList.Disruptions)
+                    {
+                        if (dis.Status != "past")
+                        {
+                            await _disruptionGateway.Create(dis.Status, dis.messages[0].text, dis.API_ID);
+                            Console.WriteLine("oui");
+                        }
+
+                    }
+                }
+            }
+            Console.WriteLine("new");
+            await GetHorrairesLignes();
+        }
+
+        public async Task GetHorrairesLignes()
+        {
+            IEnumerable<LineData> AllLines = await _lineGateway.GetAll();
+            AllLines.ToList<LineData>();          // ou AsLIst() 
+            foreach (LineData li in AllLines)
+            {
+                WebRequest wR = WebRequest.Create(_options.API_HorraireUrl(li.API_ID));
+                wR = ConfigureRequest(wR);
+                using (var webRequestResponse = wR.GetResponse())
+                {
+                    using (var streamResponse = new StreamReader(webRequestResponse.GetResponseStream()))
+                    {
+                        var horraireslist = JsonConvert.DeserializeObject<ListHorraires>(streamResponse.ReadToEnd().ToString());
+                            foreach (var horraire in horraireslist.Departures)
+                            {
+
+                                string heurevalide = horraire.stop_date_time.arrival_date_time.Substring(9, 4);
+                                int directionpos = horraire.route.name.IndexOf(" - ") + 3;
+                                string directionvalide = horraire.route.name.Substring(directionpos);
+                                await _horrairesGateway.Create(heurevalide, horraire.stop_point.stop_area.Name, li.Id, directionvalide);
+
+
+                            }
                     }
                 }
             }

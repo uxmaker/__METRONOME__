@@ -19,11 +19,12 @@ namespace Metronome.Api.Daemon
                 API_TokenAuth = "b0091e2f-0480-4216-8f99-ebafb067c539"
                 // <OR> "48f07b3d-b3e5-4c89-b7ac-768148e8da72"
             };
-
-            manager.Add(new Navitia_Daemon(stationOpt, new LineGateway(stationOpt.ConnectionString), new StopAreaGateway(stationOpt.ConnectionString), new JointureGateway(stationOpt.ConnectionString)));
-
             manager.Add(new Template_Daemon(5000));
-            
+
+            manager.Add(new Navitia_Daemon(stationOpt, new LineGateway(stationOpt.ConnectionString), new StopAreaGateway(stationOpt.ConnectionString), new JointureGateway(stationOpt.ConnectionString), new DisruptionGateway(stationOpt.ConnectionString), new HorrairesGateway(stationOpt.ConnectionString)));
+
+
+
             manager.Run();
         }
     }

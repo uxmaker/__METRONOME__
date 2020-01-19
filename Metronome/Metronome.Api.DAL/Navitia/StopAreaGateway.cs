@@ -106,6 +106,14 @@ namespace Metronome.Api.DAL.Navitia
                 }
             }
         }
+        public async Task<int> GetId(string name)
+        {
+            using (var c = GetSqlConnection())
+            {
+                return await c.QueryFirstAsync<int>("select Id from MTN.StopArea s where s.Name=@Name ", new { Name = name });
+
+            }
+        }
 
         public async Task<int> Create(string apiId, string name, float lon, float lat)
         {

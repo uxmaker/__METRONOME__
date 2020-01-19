@@ -14,8 +14,10 @@ namespace Metronome.Api.Controllers
         readonly LineGateway _LineGateway;
 
         [HttpGet]
-        public async Task<IActionResult> GetTrains(int stopAreaId)
+        public async Task<IActionResult> GetTrains(string  stopArea)
         {
+            StopAreaData station = await _StopAreaGateway.FindByName(stopArea);
+            int stopAreaId = station.Id;
             List<int> listLignes = new List<int>();
             List<HorrairesResponse> result = new List<HorrairesResponse>();
             /*

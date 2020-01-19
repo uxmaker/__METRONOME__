@@ -9,7 +9,6 @@
                 <div></div>
                 <button class="signin aths" @click="login('Base')"><div class="before"></div><div class="content">se connecter</div><div class="after"></div></button>
                 <button class="signup aths" @click="register('Base-Register')"><div class="before"></div><div class="content">s'enregistrer</div><div class="after"></div></button>
-                <router-link to="/" class="profile mbms"><i class="icon"></i><div class="content">Profile</div></router-link>
                 <router-link to="/about" class="map mbms"><i class="icon"></i><div class="content">Plan</div></router-link>
                 <router-link to="/Logout" class="profile mbms"><i class="icon"></i><div class="content">Logout</div></router-link>
             </div>

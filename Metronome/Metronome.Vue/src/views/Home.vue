@@ -25,7 +25,7 @@ export default {
       links : {
         anonyme : [ 
           [ "Accueil", "/", require("../assets/template/essential/png/home-2.png"), "default" ],
-          [ "Info Traffic", "/", null, "default" ]
+          //[ "Info Traffic", "/", null, "default" ]
         ],
         auth : [
           [ "Plan", "/about", require("../assets/template/essential/png/map-2.png"), "default" ]

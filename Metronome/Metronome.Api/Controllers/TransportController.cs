@@ -16,7 +16,8 @@ namespace Metronome.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTrains(string  stopArea)
         {
-            StopAreaData station = await _StopAreaGateway.FindByName(stopArea);
+            StopAreaData station = new StopAreaData();
+            station = await _StopAreaGateway.FindByName(stopArea);
             int stopAreaId = station.Id;
             List<int> listLignes = new List<int>();
             List<HorrairesResponse> result = new List<HorrairesResponse>();

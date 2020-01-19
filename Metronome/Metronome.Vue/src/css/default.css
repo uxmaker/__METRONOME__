@@ -1,22 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
 *
 {
     margin:0px;
     padding:0px;
     font-weight: normal;
-    font-family:sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
-button
-{
-    border:0px;
-}
+button{ border:0px; }
 
-#app
-{
-    width:100%;
-}
-
-body 
-{
-    background-color:#00060e;
-}
+body{ background-color:#00060e; }
+#app{ width:100%; }

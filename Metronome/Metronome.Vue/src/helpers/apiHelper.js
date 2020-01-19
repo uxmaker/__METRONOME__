@@ -21,7 +21,7 @@ async function send(url, method, data, contentType, isRetrying) {
     let options = {
         method: method,
         headers: {
-            //'Authorization': `Bearer ${AuthService.accessToken}`
+            'Authorization': `Bearer ${AuthService.accessToken}`
         },
         mode: 'cors'
     };

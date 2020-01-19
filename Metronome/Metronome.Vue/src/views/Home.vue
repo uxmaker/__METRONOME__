@@ -1,17 +1,23 @@
 <template>
   <div class="home">
-    <navigation v-bind:isAuth="true" v-bind:alwaysLinks="links.anonyme" v-bind:authLinks="links.auth"></navigation>
+    <navigation v-bind:alwaysLinks="links.anonyme" v-bind:authLinks="links.auth"></navigation>
     <img alt="Vue logo" src="../assets/logo.png">
   </div>
 </template>
 
 <script>
+import AuthService from '../services/AuthService'
 import navigation from '@/components/navigation.vue'
 
 export default {
   name: 'home',
   components: {
     navigation
+  },
+  computed: {
+    auth: () => AuthService,
+  },
+  methods:{
   },
   data()
   {

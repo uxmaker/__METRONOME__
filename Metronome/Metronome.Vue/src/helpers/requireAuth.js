@@ -8,13 +8,15 @@ import AuthService from '../services/AuthService'
  */
 export default function requireAuth(to, from, next) {
     if (!AuthService.isConnected) {
+        console.log('REQUIRE AUTH - NOT LOGGED !')
         next({
-            path: '/login',
+            path: '/',
             query: { redirect: to.fullPath }
         });
-
         return;
     }
+    
+    console.log('REQUIRE AUTH - LOGGED !')
 
     var requiredProviders = to.meta.requiredProviders;
 

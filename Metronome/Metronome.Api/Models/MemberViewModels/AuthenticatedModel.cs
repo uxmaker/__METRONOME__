@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Metronome.Api.Authentication.Jwt;
 
 namespace Metronome.Api.Models.MemberViewModels
@@ -15,7 +16,7 @@ namespace Metronome.Api.Models.MemberViewModels
 
         [Required]
         [DataType(DataType.Text)]
-        public string Provider { get; set; }
+        public IEnumerable<string> Providers { get; set; }
 
         [Required]
         public AuthToken Token { get; set; }

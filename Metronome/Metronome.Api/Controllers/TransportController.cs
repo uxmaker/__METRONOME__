@@ -30,7 +30,7 @@ namespace Metronome.Api.Controllers
             //StopAreaData station = await _StopAreaGateway.FindByName(stopAreaDecode);
             //int stopAreaId = station.Id;
             
-            int stopAreaId = await _StopAreaGateway.GetId("nation");
+            int stopAreaId = await _StopAreaGateway.GetId(stopAreaDecode);
             Console.WriteLine(stopAreaId);
             List<HorrairesResponse> result = new List<HorrairesResponse>();
             List<int> listLignes = await _StopAreaGateway.GetLines(stopAreaId);

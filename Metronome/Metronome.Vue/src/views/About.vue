@@ -379,24 +379,59 @@ export default {
 
     async UpdateData(lignes, popup, arret, description, me) {
       let texte = "";
-      let timeleft = await me.UpdateSubway(1);
+      var cpt;
+      let timeleft = await me.UpdateSubway(arret);
+      console.log(timeleft);
+
       lignes.forEach(nb => {
-        texte += '<img src="/logometro/m'+nb+'genrvb.svg" height="25" width="25" display="block" margin="0 auto";> prochain dans <b>'+timeleft['line'+nb]+'min</b><br>';
+        texte += '<img src="/logometro/m'+nb+'genrvb.svg"style="display:block; height:35px; width:35px; margin:0 auto;"/>'
+        cpt = 0;
+        texte += '<ul style="list-style-type:none;">'
+        timeleft.forEach(element => {
+          if(cpt == 3) 
+            {
+              texte += '</ul>';
+              return;
+            }
+          if(element.lignecode == nb) {
+            texte += '<li>Prochain à <b style="font-weight:bold;">'+element.hour[0]+element.hour[1]+'h'+element.hour[2]+element.hour[3]+'min</b> direction <b style="font-weight:bold;">'+ element.direction+'</b></li>';
+            cpt++;
+          }
+          
+        });
+
+        //texte += '<img src="/logometro/m'+nb+'genrvb.svg" height="25" width="25" display="block" margin="0 auto";> prochain dans <b>'+'temps'+'min</b><br>';
       });
       
-      popup.setHTML("<strong>"+description+"</strong><p>" + texte + "</p>");
+      
+      popup.setHTML("<b style='font-weight:bold;'>"+description+"</strong><p>" + texte + "</p>");
 
       
       let interval = setInterval(async () => {
         if (!popup.isOpen()) clearInterval(interval);
         let texte = "";
-        let timeleft = await me.UpdateSubway(1);
+        let timeleft = await me.UpdateSubway(arret);
         //console.log(timeleft);
         lignes.forEach(nb => {
-          texte += '<img src="/logometro/m'+nb+'genrvb.svg" height="25" width="25" display="block" margin="0 auto";> prochain dans <b>'+timeleft['line'+nb]+'min</b><br>';
-        });
+          texte += '<img src="/logometro/m'+nb+'genrvb.svg"style="display:block; height:35px; width:35px; margin:0 auto;"/>'
+          let cpt = 0;
+          texte += '<ul style="list-style-type:none;">'
+          timeleft.forEach(element => {
+            if(cpt == 3) 
+            {
+              texte += '</ul>';
+              return;
+            }
+
+            if(element.lignecode === nb) {
+              texte += '<li>Prochain à <b style="font-weight:bold;">'+element.hour[0]+element.hour[1]+'h'+element.hour[2]+element.hour[3]+'min</b> direction <b style="font-weight:bold;">'+ element.direction+'</b></li>';
+              cpt++;
+            }
+          });
+        //texte += '<img src="/logometro/m'+nb+'genrvb.svg" height="25" width="25" display="block" margin="0 auto";> prochain dans <b>'+'temps'+'min</b><br>';
+      });
         
-        popup.setHTML("<strong>"+description+"</strong><p>" + texte + "</p>");
+      popup.setHTML("<b style='font-weight:bold;'>"+description+"</strong><p>" + texte + "</p>");
 
         
       },20000, lignes, popup, arret, description, me );
@@ -429,9 +464,22 @@ export default {
 
     },
 
-    async UpdateSubway() {
-      return (await getTimeStopAsync(1));
-      
+    DisplayHorraire(array, nb) {
+      let listhour = [];
+      array.forEach(element => {
+        if (element.lignecode == nb) {
+          let station = {};
+          station.hour = element.hour;
+          station.direction = element.direction;
+          listhour.push(station);
+        }
+      });
+      console.log(listhour);
+      return(listhour);
+    },
+
+    async UpdateSubway(arret) {
+      return (await getTimeStopAsync(arret));
     },
 
     CheckboxDisplayEvent(e,t) {
@@ -517,7 +565,7 @@ export default {
     }
     
     .mapboxgl-popup {
-    max-width: 200px;
+    max-width: 400px;
     }
 
     .alertbutton {
@@ -625,7 +673,8 @@ export default {
     width: 220px;
     }
     .mapboxgl-popup-content {
-    font: 15px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font: 17px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    width: 450px;
     }
     
 </style>

@@ -16,7 +16,9 @@ namespace Metronome.Api.Controllers
         readonly StopAreaGateway _StopAreaGateway;
         readonly LineGateway _LineGateway;
 
+
         [HttpGet("{stopArea}")]
+        public async Task<IActionResult> GetTrains(string stopArea)
         {
             stopArea = HttpUtility.UrlDecode(stopArea);
 

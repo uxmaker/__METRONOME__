@@ -20,19 +20,15 @@ namespace Metronome.Api.Controllers
         [HttpGet("{stopArea}")]
         public async Task<IActionResult> GetTrains(string stopArea)
         {
-            stopArea = HttpUtility.UrlDecode(stopArea);
-
-            StopAreaData station = new StopAreaData();
-            station = await _StopAreaGateway.FindByName(stopArea);
-            int stopAreaId = station.Id;
-            List<int> listLignes = new List<int>();
+            string stopAreaDecode = HttpUtility.UrlDecode(stopArea);
+            Console.WriteLine(stopAreaDecode);
+            //StopAreaData station = await _StopAreaGateway.FindByName(stopAreaDecode);
+            //int stopAreaId = station.Id;
+            
+            int stopAreaId = await _StopAreaGateway.GetId(stopAreaDecode);
+            Console.WriteLine(stopAreaId);
             List<HorrairesResponse> result = new List<HorrairesResponse>();
-            /*
-             * line 8 { hour , direction }, line 7 {hour , direction }
-            */
-            //var result = new { line6 =  new Random().Next(21), line8 = new Random().Next(21) };
-            //result = Json(result);
-            listLignes = await _StopAreaGateway.GetLines(stopAreaId);
+            List<int> listLignes = await _StopAreaGateway.GetLines(stopAreaId);
             foreach (int l in listLignes)
             {
                 string codeligne = await _LineGateway.GetCode(l);

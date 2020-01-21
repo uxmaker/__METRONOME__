@@ -25,6 +25,7 @@ namespace Metronome.Api
             services.AddSingleton(_ => new MemberGateway(_settings["SQL:ConnectionString"]));
             services.AddSingleton(_ => new StopAreaGateway(_settings["SQL:ConnectionString"]));
             services.AddSingleton(_ => new LineGateway(_settings["SQL:ConnectionString"]));
+            services.AddSingleton(_ => new HorrairesGateway(_settings["SQL:ConnectionString"]));
             services.AddSingleton(_ => new PasswordHasher());
             services.AddSingleton<AuthTokenService>();
         }

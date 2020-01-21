@@ -12,11 +12,16 @@ namespace Metronome.Api.Controllers
     [Route("[controller]/[action]")]
     public class TransportController : Controller
     {
-        readonly HorrairesGateway _HorrairesGateway;
+        readonly HorrairesGateway _HorrairesGateway ;
         readonly StopAreaGateway _StopAreaGateway;
         readonly LineGateway _LineGateway;
 
-
+        public TransportController( HorrairesGateway horrairesGateway, StopAreaGateway stopAreaGateway, LineGateway lineGateway)
+        {
+            _HorrairesGateway = horrairesGateway;
+            _StopAreaGateway = stopAreaGateway;
+            _LineGateway = lineGateway;
+        }
         [HttpGet("{stopArea}")]
         public async Task<IActionResult> GetTrains(string stopArea)
         {
@@ -25,7 +30,7 @@ namespace Metronome.Api.Controllers
             //StopAreaData station = await _StopAreaGateway.FindByName(stopAreaDecode);
             //int stopAreaId = station.Id;
             
-            int stopAreaId = await _StopAreaGateway.GetId(stopAreaDecode);
+            int stopAreaId = await _StopAreaGateway.GetId("nation");
             Console.WriteLine(stopAreaId);
             List<HorrairesResponse> result = new List<HorrairesResponse>();
             List<int> listLignes = await _StopAreaGateway.GetLines(stopAreaId);

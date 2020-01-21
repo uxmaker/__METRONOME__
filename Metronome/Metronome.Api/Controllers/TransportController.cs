@@ -1,22 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Metronome.Api.DAL;
 using Metronome.Api.DAL.Navitia;
 using Microsoft.AspNetCore.Mvc;
+using System.Web;
 
 namespace Metronome.Api.Controllers
 {
+    [Route("[controller]/[action]")]
     public class TransportController : Controller
     {
         readonly HorrairesGateway _HorrairesGateway;
         readonly StopAreaGateway _StopAreaGateway;
         readonly LineGateway _LineGateway;
 
-        [HttpGet]
-        public async Task<IActionResult> GetTrains(string stopArea)
+        [HttpGet("{stopArea}")]
         {
-            int stopAreaId = await _StopAreaGateway.GetId(stopArea);
+            stopArea = HttpUtility.UrlDecode(stopArea);
+
+            StopAreaData station = new StopAreaData();
+            station = await _StopAreaGateway.FindByName(stopArea);
+            int stopAreaId = station.Id;
             List<int> listLignes = new List<int>();
             List<HorrairesResponse> result = new List<HorrairesResponse>();
             /*

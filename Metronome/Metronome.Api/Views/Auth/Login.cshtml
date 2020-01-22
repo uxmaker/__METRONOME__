@@ -1,29 +1,135 @@
 ﻿@using Metronome.Api.Models.MemberViewModels
 @model LoginFormModel
 
-    <div class="form-container">
-        <div>
-            @if (!ViewContext.ViewData.ModelState.IsValid)
-            {
-                <div asp-validation-summary="All"></div>
+<html lang="en">
+    <head>
+        <title>Se connecter</title>
+        <style>
+
+            * {
+                margin: 0px;
+                padding: 0px;
+                font-family: sans-serif;
             }
+
+            body {
+                background-image: url('https://images8.alphacoders.com/100/thumb-1920-1008408.jpg');
+                background-position: top center;
+                background-attachment: fixed;
+                background-repeat: no-repeat;
+                background-size: 100% auto;
+            }
+
+            .page-container {
+                background-color: #00060eDD;
+                position: absolute;
+                top: 0;
+                left: 0px;
+                width: 100%;
+                min-height: 100vh;
+            }
+
+            .form-container {
+                max-width: 508px;
+                padding: 16px;
+                margin: 16px auto;
+                background-color: #ffffff20;
+                border: 1px solid #ffffff40;
+                color: white;
+            }
+
+                .form-container h1 {
+                    color: #ffffff80;
+                    padding: 8px 16px;
+                    margin-bottom: 16px;
+                    border-bottom: 1px solid #ffffff40;
+                }
+
+                .form-container .validators {
+                    margin-bottom: 16px;
+                    font-size: 12px;
+                    color: red;
+                    text-align: center;
+                }
+
+            form {
+                display: grid;
+                grid-template-rows: repeat(auto-fill, 40px);
+                grid-template-columns: 1fr;
+                grid-gap: 8px;
+                text-align: right;
+                font-size: 12px;
+            }
+
+                form > div {
+                    height: 40px;
+                    display: grid;
+                    grid-template-columns: 180px 1fr;
+                    line-height: 40px;
+                    grid-gap: 8px;
+                }
+
+                form input,
+                form a {
+                    background-color: white;
+                    border: 0px;
+                    font-size: 12px;
+                    padding: 4px 8px;
+                    background-color: #ffffff20;
+                    border: 1px solid #ffffff40;
+                    color: white;
+                    font-weight: bold;
+                    transition: 300ms;
+                    text-align: center;
+                    text-decoration: none;
+                }
+
+                form .buttons {
+                    grid-template-columns: repeat(auto-fit, 200px);
+                }
+
+                    form .buttons input:hover,
+                    form .buttons a:hover {
+                        background-color: #ffffffAA;
+                    }
+
+                    form input[type=submit],
+                    form .buttons a {
+                        display: block;
+                        border-radius: 3px;
+                        font-size: 11px;
+                    }
+        </style>
+    </head>
+    <body>
+        <div class="page-container">
+            <div class="form-container">
+                <h1>Se connecter</h1>
+                <div class="validators">
+                    @if (!ViewContext.ViewData.ModelState.IsValid)
+                    {
+                        <div asp-validation-summary="All"></div>
+                    }
+                    <span asp-validation-for="Email"></span>
+                    <span asp-validation-for="Password"></span>
+                </div>
+                <form asp-controller="Auth" asp-action="Login" method="post">
+                    <div>
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" />
+                    </div>
+
+                    <div>
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" />
+                    </div>
+
+                    <div class="buttons">
+                        <input type="submit" value="Se connecter" />
+                        <a asp-action="Register">Créer un nouveau compte</a>
+                    </div>
+                </form>
+            </div>
         </div>
-        <form asp-controller="Auth" asp-action="Login" method="post">
-            <div>
-                <span asp-validation-for="Email"></span>
-                <label asp-for="Email"></label>
-                <input asp-for="Email" />
-            </div>
-
-            <div>
-                <span asp-validation-for="Password"></span>
-                <label asp-for="Password"></label>
-                <input asp-for="Password" />
-            </div>
-
-            <div>
-                <input type="submit" value="Se connecter" />
-            </div>
-        </form>
-        <a asp-action="Register">Créer un nouveau compte</a>
-    </div>
+    </body>
+</html>

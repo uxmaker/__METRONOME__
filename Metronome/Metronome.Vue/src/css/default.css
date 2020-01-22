@@ -9,6 +9,5 @@
 }
 
 button{ border:0px; }
-
-body{ background-color:#00060e; }
+body{ background-color:#00060e; background-image:linear-gradient(to bottom, #00060e 95%,#003040); min-height:100vh; }
 #app{ width:100%; }

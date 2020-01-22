@@ -2,7 +2,10 @@
 @using Metronome.Api.Models.MemberViewModels;
 
 @model AuthenticatedModel
-
+@{ 
+    IEnumerable<string> providers = (IEnumerable<string>)Model.Providers;
+    string providerNames = string.Join( ",", providers.Select( p => string.Format( "'{0}'", p ) ) );
+}
 <!DOCTYPE html>
 
 <html>
@@ -18,8 +21,10 @@
                 payload: {
                     bearer: {
                         accessToken: '@Model.Token.AccessToken',
-                        expires_in: @Model.Token.ExpiresIn },
-                    email: '@Model.MemberEmail'
+                        expires_in: @Model.Token.ExpiresIn
+                    },
+                    email: '@Model.MemberEmail',
+                    boundProviders: [@Html.Raw( providerNames )]
                 }
             }, '@Model.SpaHost');
 

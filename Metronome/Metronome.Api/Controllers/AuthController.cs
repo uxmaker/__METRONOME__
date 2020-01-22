@@ -11,6 +11,7 @@ using Metronome.Api.Authentication.Cookie;
 using Metronome.Api.Models.MemberViewModels;
 using Metronome.Api.Authentication;
 using Metronome.Api.Authentication.Jwt;
+using System.Linq;
 
 namespace Metronome.Api.Controllers
 {
@@ -113,6 +114,7 @@ namespace Metronome.Api.Controllers
             model.Token = _tokenService.GenerateToken(member_id, member_email);
             model.BreackPadding = GetBreachPadding();
             model.MemberEmail = member_email;
+            model.Providers = new List<string> { "Metronome" };
             model.SpaHost = "http://localhost:8080/";
             return View(model);
         }
@@ -125,6 +127,19 @@ namespace Metronome.Api.Controllers
             ViewData["SpaHost"] = "http://localhost:8080/";
             return View();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Token()
+        {
+            var identity = User.Identities.SingleOrDefault(i => i.AuthenticationType == AuthCookieParameters.Type);
+            if (identity == null) return Ok(new { Success = false });
+            string userId = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string email = identity.FindFirst(ClaimTypes.Email).Value;
+            AuthToken token = _tokenService.GenerateToken(userId, email);
+            IEnumerable<string> providers = new List<string> {"Metronome"};
+            return Ok(new { Success = true, Bearer = token, Email = email, BoundProviders = providers });
+        }
+
 
         // -- PRIVATE METHOD
 

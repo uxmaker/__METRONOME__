@@ -3,15 +3,24 @@
 </template>
 
 <script scoped>
+import AuthService from './services/AuthService'
+import {state} from './state'
 
 export default {
   name: 'app',
-  data(){
-    return {
+    data() {
+        return {
+            state
+        }
+    },
+
+    computed: {
+        auth: () => AuthService,
+        
+        isLoading() {
+            return this.state.isLoading;
+        }
     }
-  },
-  components: {
-  }
 }
 </script>
 

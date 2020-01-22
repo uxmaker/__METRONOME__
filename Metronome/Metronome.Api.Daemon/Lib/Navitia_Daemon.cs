@@ -144,13 +144,12 @@ namespace Metronome.Api.Daemon.Lib
                         if (dis.Status != "past")
                         {
                             await _disruptionGateway.Create(dis.Status, dis.messages[0].text, dis.API_ID);
-                            Console.WriteLine("oui");
+                            Console.WriteLine("disruption");
                         }
 
                     }
                 }
             }
-            Console.WriteLine("new");
             await GetHorrairesLignes();
         }
 
@@ -160,7 +159,10 @@ namespace Metronome.Api.Daemon.Lib
             AllLines.ToList<LineData>();          // ou AsLIst() 
             foreach (LineData li in AllLines)
             {
+                Console.WriteLine("ligne : " +li.Code + "  ----- " +li.API_ID);
+                await _horrairesGateway.DeleteByLineId(li.Id);
                 WebRequest wR = WebRequest.Create(_options.API_HorraireUrl(li.API_ID));
+
                 wR = ConfigureRequest(wR);
                 using (var webRequestResponse = wR.GetResponse())
                 {
@@ -173,6 +175,7 @@ namespace Metronome.Api.Daemon.Lib
                                 string heurevalide = horraire.stop_date_time.arrival_date_time.Substring(9, 4);
                                 int directionpos = horraire.route.name.IndexOf(" - ") + 3;
                                 string directionvalide = horraire.route.name.Substring(directionpos);
+                                 //string directionvalide = horraire.route.name;
                                 await _horrairesGateway.Create(heurevalide, horraire.stop_point.stop_area.Name, li.Id, directionvalide);
 
 
@@ -182,30 +185,7 @@ namespace Metronome.Api.Daemon.Lib
             }
         }
 
-        // Pas encore fonctionnelle
-        /*public async Task GetHorrairesLignes()
-        {
-            Task<IEnumerable<LineData>> AllLines = _lineGateway.GetAll();
-            List<LineData> aaa = new List<LineData>();
-            foreach (LineData li in aaa)
-            {
-                WebRequest wR = WebRequest.Create(_options.API_StationUrl(li.API_ID));
-                wR = ConfigureRequest(wR);
-                using (var webRequestResponse = wR.GetResponse())
-                {
-                    using (var streamResponse = new StreamReader(webRequestResponse.GetResponseStream()))
-                    {
-                        var horraireslist = JsonConvert.DeserializeObject<ListHorraires>(streamResponse.ReadToEnd().ToString());
-                        foreach (var horraire in horraireslist.Horraires)
-                        {
-                            Console.WriteLine(horraire.stop_point.name);
-                            Console.WriteLine(horraire.stop_date_time.arrival_date_time);
-
-                        }
-                    }
-                }
-            }
-        }*/
+        
 
         private WebRequest ConfigureRequest(WebRequest request)
         {

@@ -49,14 +49,14 @@ namespace Metronome.Api.DAL.Navitia
                 return await c.QueryAsync<HorrairesData>("select * from MTN.Horraires h where h.StopAreaId = (select id from MTN.StopArea s where s.Name =@StopAreaName  ", new { StopAreaName = StopArea });
             }
         }
-        public async Task<int> DeleteAll()
+        public async Task<int> DeleteByLineId(int lineId)
         {
 
             using (var c = GetSqlConnection())
             {
                 try
                 {
-                    await c.QueryAsync("delete MTN.Horraires");
+                    await c.QueryAsync("delete MTN.Horraires where LineId = @LineId", new { LineId = lineId });
                     return 0;
 
                 }
